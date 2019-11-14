@@ -10,7 +10,7 @@ public class MainFrameApplication extends JFrame {
     private JButton button;
     private JLabel label;
 
-    private int oldX, oldY;
+    private int startDragX, startDragY;
     private boolean isDragged = false;
 
     public MainFrameApplication()  {
@@ -46,9 +46,9 @@ public class MainFrameApplication extends JFrame {
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                if(e.isControlDown()){
-                    oldX = getMousePosition().x - button.getX();
-                    oldY = getMousePosition().y - button.getY();
+                if(e.isControlDown() && !isDragged){
+                    startDragX = getMousePosition().x - button.getX();
+                    startDragY = getMousePosition().y - button.getY();
                     isDragged = true;
                 }
             }
@@ -62,7 +62,7 @@ public class MainFrameApplication extends JFrame {
         public void mouseMoved(MouseEvent e) {
             label.setText("x: " + e.getXOnScreen() + " y: " + e.getYOnScreen());
             if(isDragged){
-                button.setLocation(e.getXOnScreen() - oldX, e.getYOnScreen() - oldY);
+                button.setLocation(e.getXOnScreen() - startDragX, e.getYOnScreen() - startDragY);
             }
         }
     }
@@ -71,8 +71,8 @@ public class MainFrameApplication extends JFrame {
         @Override
         public void keyPressed(KeyEvent e) {
             if(e.getExtendedKeyCode() == KeyEvent.VK_CONTROL && button.getBounds().contains(getMousePosition())){
-                oldX = getMousePosition().x - button.getX();
-                oldY = getMousePosition().y - button.getY();
+                startDragX = button.getMousePosition().x;
+                startDragY = button.getMousePosition().y;
                 isDragged = true;
             }
         }
