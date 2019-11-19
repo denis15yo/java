@@ -1,6 +1,7 @@
 package Frames;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class MainFrameApplication extends JFrame {
@@ -22,7 +23,7 @@ public class MainFrameApplication extends JFrame {
         setSize(1440, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        button = new JButton("Button");
+        button = new JButton("Drag me!");
         button.setSize(WIDTH_BUTTON, HEIGHT_BUTTON);
         button.setLocation((getWidth() - button.getWidth()) / 2, (getHeight() - button.getHeight()) / 2);
 
