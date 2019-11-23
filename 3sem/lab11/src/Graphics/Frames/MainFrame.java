@@ -21,8 +21,6 @@ public class MainFrame extends JFrame {
         isChanged = changed;
     }
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private JButton buttonColor;
     private PaintingPanel paintingPanel;
 
     public void updateTitle(){
@@ -39,10 +37,10 @@ public class MainFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(paintingPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        buttonColor = new JButton("Color");
+        JButton buttonColor = new JButton("Color");
         buttonColor.addActionListener(e -> {
             Color currentColor = paintingPanel.getColor();
-            paintingPanel.setColor(JColorChooser.showDialog(null, "Choose", currentColor));
+            paintingPanel.setColor(JColorChooser.showDialog(null, "Choose color", currentColor));
         });
 
         JMenuBar menuBar = new JMenuBar();
@@ -57,62 +55,51 @@ public class MainFrame extends JFrame {
         fileMenu.add(saveAsMenu);
         menuBar.add(fileMenu);
 
-        newMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                paintingPanel.setWhiteList();
-                workFile = null;
-                isChanged = false;
-                updateTitle();
-            }
+        newMenu.addActionListener(e -> {
+            paintingPanel.setWhiteList();
+            workFile = null;
+            isChanged = false;
+            updateTitle();
         });
 
-        openMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    loadFromFile();
-                    isChanged = false;
-                    updateTitle();
-                } catch (IOException ignored) {
-                    JOptionPane.showMessageDialog(null, "Opening Error",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+        openMenu.addActionListener(e -> {
+            try {
+                FileDialog dlg = new FileDialog(this, "Open", FileDialog.LOAD);
+                dlg.setFilenameFilter((dir, name) -> name.matches(".+\\.png"));
+                dlg.setVisible(true);
+                if(dlg.getFiles().length == 1){
+                    workFile = dlg.getFiles()[0];
+                    paintingPanel.setImg(ImageIO.read(workFile));
+                    paintingPanel.repaint();
                 }
+                isChanged = false;
+                updateTitle();
+            } catch (IOException ignored) {
+                JOptionPane.showMessageDialog(null, "Opening Error",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         saveMenu.addActionListener(e -> {
             if(workFile != null){
                 try {
-                    ImageIO.write(paintingPanel.getImg(), workFile.getName().substring(workFile.getName().length() - 3), workFile);
-                    isChanged = false;
-                    updateTitle();
+                    System.out.println(workFile.getName().substring(workFile.getName().length() - 3));
+                    if(ImageIO.write(paintingPanel.getImg(), workFile.getName().substring(workFile.getName().length() - 3), workFile)){
+                        isChanged = false;
+                        updateTitle();
+                    }else{
+                        throw new IOException();
+                    }
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Saving failed",
                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else{
-                saveAsMenu.doClick();
+                showDialogAndSaveToSelectedFile();
             }
         });
         saveAsMenu.addActionListener(e -> {
-            try{
-                File temp = showSaveDialog();
-                if(temp != null) {
-                    workFile = temp;
-                    ImageIO.write(paintingPanel.getImg(), "png", workFile);
-                    isChanged = false;
-                    updateTitle();
-                }
-            }
-            catch(IllegalArgumentException ex){
-                JOptionPane.showMessageDialog(null, "Required File Extension \".png\"",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Saving failed",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            showDialogAndSaveToSelectedFile();
         });
 
         addWindowListener(new WindowAdapter() {
@@ -121,7 +108,7 @@ public class MainFrame extends JFrame {
                 if(isChanged){
                     int answer = JOptionPane.showConfirmDialog(e.getWindow(), "Do you want to save changes?");
                     if(answer == JOptionPane.YES_OPTION){
-                        saveAsMenu.doClick();
+                        showDialogAndSaveToSelectedFile();
                     }
                     else if(answer == JOptionPane.NO_OPTION){
                         System.exit(0);
@@ -155,15 +142,27 @@ public class MainFrame extends JFrame {
         }
         return file;
     }
-
-    private void loadFromFile() throws IOException {
-        FileDialog dlg = new FileDialog(this, "Open", FileDialog.LOAD);
-        dlg.setFilenameFilter((dir, name) -> name.matches(".+\\.((png)|(jpg))"));
-        dlg.setVisible(true);
-        if(dlg.getFiles().length == 1){
-            workFile = dlg.getFiles()[0];
-            paintingPanel.setImg(ImageIO.read(workFile));
-            paintingPanel.repaint();
+    private void showDialogAndSaveToSelectedFile(){
+        try{
+            File temp = showSaveDialog();
+            if(temp != null) {
+                workFile = temp;
+                if(ImageIO.write(paintingPanel.getImg(), "png", workFile)){
+                    isChanged = false;
+                    updateTitle();
+                }
+                else{
+                    throw new IOException();
+                }
+            }
+        }
+        catch(IllegalArgumentException ex){
+            JOptionPane.showMessageDialog(null, "Required File Extension \".png\"",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Saving failed",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
