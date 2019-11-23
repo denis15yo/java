@@ -9,8 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class PaintingPanel extends JPanel {
-    private static final int IMAGE_WIDTH = 1435;
-    private static final int IMAGE_HEIGHT = 835;
+    public static final int DEFAULT_IMAGE_WIDTH = 1435;
+    public static final int DEFAULT_IMAGE_HEIGHT = 835;
 
     private MainFrame frame;
     private BufferedImage img;
@@ -36,8 +36,7 @@ public class PaintingPanel extends JPanel {
 
         this.frame = frame;
 
-        setWhiteList();
-        setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
+        setWhiteCanvas(DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT);
 
         PaintingPanelMouseAdapter mouseAdapter = new PaintingPanelMouseAdapter();
         addMouseListener(mouseAdapter);
@@ -72,8 +71,8 @@ public class PaintingPanel extends JPanel {
         }
     }
 
-    public void setWhiteList(){
-        img = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    public void setWhiteCanvas(int width, int height){
+        img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, img.getWidth(), img.getHeight());

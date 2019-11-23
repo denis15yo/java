@@ -21,7 +21,8 @@ public class MainFrame extends JFrame {
         isChanged = changed;
     }
 
-    private PaintingPanel paintingPanel;
+    private PaintingPanel paintingPanelLeft;
+    private PaintingPanel paintingPanelRight;
 
     public void updateTitle(){
         String title = (workFile == null ? "New" : workFile.getName()) + ( (isChanged) ? " - [Changed]" : "");
@@ -33,14 +34,17 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setBounds(FRAME_POSITION_X, FRAME_POSITION_Y, FRAME_WIDTH, FRAME_HEIGHT);
 
-        paintingPanel = new PaintingPanel(this);
-        JScrollPane scrollPane = new JScrollPane(paintingPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        paintingPanelLeft = new PaintingPanel(this);
+        JScrollPane scrollPane = new JScrollPane(paintingPanelLeft, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        paintingPanelRight = new PaintingPanel(this);
 
         JButton buttonColor = new JButton("Color");
         buttonColor.addActionListener(e -> {
-            Color currentColor = paintingPanel.getColor();
-            paintingPanel.setColor(JColorChooser.showDialog(null, "Choose color", currentColor));
+            Color currentColor = paintingPanelLeft.getColor();
+            Color newColor = JColorChooser.showDialog(null, "Choose color", currentColor);
+            paintingPanelLeft.setColor(newColor);
+            paintingPanelRight.setColor(newColor);
         });
 
         JMenuBar menuBar = new JMenuBar();
@@ -56,7 +60,7 @@ public class MainFrame extends JFrame {
         menuBar.add(fileMenu);
 
         newMenu.addActionListener(e -> {
-            paintingPanel.setWhiteList();
+            paintingPanelLeft.setWhiteCanvas(PaintingPanel.DEFAULT_IMAGE_WIDTH, PaintingPanel.DEFAULT_IMAGE_HEIGHT);
             workFile = null;
             isChanged = false;
             updateTitle();
@@ -69,11 +73,11 @@ public class MainFrame extends JFrame {
                 dlg.setVisible(true);
                 if(dlg.getFiles().length == 1){
                     workFile = dlg.getFiles()[0];
-                    paintingPanel.setImg(ImageIO.read(workFile));
-                    paintingPanel.repaint();
+                    paintingPanelLeft.setImg(ImageIO.read(workFile));
+                    paintingPanelLeft.repaint();
+                    isChanged = false;
+                    updateTitle();
                 }
-                isChanged = false;
-                updateTitle();
             } catch (IOException ignored) {
                 JOptionPane.showMessageDialog(null, "Opening Error",
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -82,8 +86,7 @@ public class MainFrame extends JFrame {
         saveMenu.addActionListener(e -> {
             if(workFile != null){
                 try {
-                    System.out.println(workFile.getName().substring(workFile.getName().length() - 3));
-                    if(ImageIO.write(paintingPanel.getImg(), workFile.getName().substring(workFile.getName().length() - 3), workFile)){
+                    if(ImageIO.write(paintingPanelLeft.getImg(), workFile.getName().substring(workFile.getName().length() - 3), workFile)){
                         isChanged = false;
                         updateTitle();
                     }else{
@@ -121,13 +124,16 @@ public class MainFrame extends JFrame {
         });
 
         setJMenuBar(menuBar);
-        add(scrollPane, BorderLayout.CENTER);
+        JPanel paintingPanels = new JPanel(new GridLayout(0, 2, 5, 0));
+        paintingPanels.add(paintingPanelLeft);
+        paintingPanels.add(paintingPanelRight);
+        add(paintingPanels, BorderLayout.CENTER);
         JPanel temp = new JPanel(new FlowLayout());
         temp.add(buttonColor);
         add(temp, BorderLayout.SOUTH);
     }
 
-    private File showSaveDialog() {
+    private File showSaveDialog() throws IOException {
         FileDialog dlg = new FileDialog(this, "Save", FileDialog.SAVE);
         dlg.setVisible(true);
         File file;
@@ -147,7 +153,7 @@ public class MainFrame extends JFrame {
             File temp = showSaveDialog();
             if(temp != null) {
                 workFile = temp;
-                if(ImageIO.write(paintingPanel.getImg(), "png", workFile)){
+                if(ImageIO.write(paintingPanelLeft.getImg(), "png", workFile)){
                     isChanged = false;
                     updateTitle();
                 }
