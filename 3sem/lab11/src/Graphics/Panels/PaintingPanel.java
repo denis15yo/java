@@ -77,5 +77,6 @@ public class PaintingPanel extends JPanel {
         Graphics2D g = img.createGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, img.getWidth(), img.getHeight());
+        repaint();
     }
 }
