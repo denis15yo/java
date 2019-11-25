@@ -14,10 +14,15 @@ public class Demo {
     public static void main(String[] args) {
         ExtendedContainer<Person> container = new ExtendedContainer<>();
         try{
-            Scanner sc = new Scanner(new File("input.txt"));
-            while(sc.hasNextLine()){
-                container.add(Parser.parseToStudent(sc.nextLine()));
+            Scanner scStudents = new Scanner(new File("students.txt"));
+            Scanner scTeachers = new Scanner(new File("teachers.txt"));
+            while(scStudents.hasNextLine()){
+                container.add(Parser.parseToStudent(scStudents.nextLine()));
             }
+            while(scTeachers.hasNextLine()){
+                container.add(Parser.parseToTeacher(scTeachers.nextLine()));
+            }
+
         }
         catch(ParserException | FileNotFoundException | NumberFormatException e){
             System.out.println("Некорректный входной файл. Программа заверешена");

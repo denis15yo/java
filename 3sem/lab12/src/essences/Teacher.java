@@ -23,6 +23,11 @@ public class Teacher extends Person {
                 subject == teacher.subject;
     }
 
+    @Override
+    public String toString() {
+        return surname + " " + age + " yo from " + country + ", " +
+                "teacher of " + subject + " with salary " + salary;
+    }
 
     public enum Subject{
         MATHS, COMPUTER_SCIENCE, MATHEMATICAL_LOGIC;
