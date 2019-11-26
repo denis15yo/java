@@ -6,7 +6,7 @@ import essences.Teacher;
 import myExceptions.ParserException;
 
 public class Parser {
-    public static Student parseToStudent(String str) throws ParserException, NumberFormatException {
+    public static Student parseToStudent(String str) throws ParserException, IllegalArgumentException {
         String[] fields = str.split("\\s+");
         if(fields.length != 5){
             throw new ParserException();

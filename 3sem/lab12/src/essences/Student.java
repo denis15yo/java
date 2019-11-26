@@ -1,7 +1,5 @@
 package essences;
 
-import java.util.Objects;
-
 public class Student extends Person {
     private String group;
     private int ball;
@@ -28,9 +26,12 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return surname + " " + age + " yo from " + country + ", " +
-                "student of " + group + " group with average ball = " + ball;
+        return "Student{" +
+                "surname='" + surname + '\'' +
+                ", age=" + age +
+                ", country=" + country +
+                ", group='" + group + '\'' +
+                ", ball=" + ball +
+                '}';
     }
-
-
 }

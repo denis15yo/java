@@ -8,6 +8,7 @@ import myUtil.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Demo {
@@ -24,7 +25,7 @@ public class Demo {
             }
 
         }
-        catch(ParserException | FileNotFoundException | NumberFormatException e){
+        catch(ParserException | FileNotFoundException | IllegalArgumentException e){
             System.out.println("Некорректный входной файл. Программа заверешена");
             System.exit(0);
         }
@@ -32,24 +33,28 @@ public class Demo {
         for (Person p : container) {
             System.out.println(p);
         }
-        container.sort(Person::compareTo);
-        System.out.println("After sort");
-        for (Person p : container) {
-            System.out.println(p);
-        }
+        //container.sort(Person::compareTo);
+        //Collections.sort(container);
+
+//        System.out.println("After sort");
+//        for (Person p : container) {
+//            System.out.println(p);
+//        }
         try{
             Person minPerson = container.min();
             Person maxPerson = container.max();
-            System.out.println("Min by surname");
+            System.out.print("Min by surname: ");
             System.out.println(minPerson);
-            System.out.println("Max by surname");
+            System.out.print("Max by surname: ");
             System.out.println(maxPerson);
         }
         catch(EmtyContainerException e){
             System.out.println(e.getMessage());
         }
         Student tested = new Student("Шилович", 18, Person.Country.USA, "second", 10);
-        System.out.println("Count of tested student:");
-        System.out.println(container.countEqualsTo(tested));
+        System.out.print("Count of tested student: ");
+        //System.out.println(container.countIf(e -> e.getAge() > 20));
+        System.out.print(container.countIf(tested::equals));
+        //System.out.println(Collections.frequency(container, tested));
     }
 }

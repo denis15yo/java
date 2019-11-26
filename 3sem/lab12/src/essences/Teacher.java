@@ -1,15 +1,15 @@
 package essences;
 
 public class Teacher extends Person {
-    private int salary;
+    private int experience;
     private Subject subject;
 
     public Teacher() {
         super();
     }
-    public Teacher(String surname, int age, Country country, int salary, Subject subject) {
+    public Teacher(String surname, int age, Country country, int experience, Subject subject) {
         super(surname, age, country);
-        this.salary = salary;
+        this.experience = experience;
         this.subject = subject;
     }
 
@@ -19,17 +19,22 @@ public class Teacher extends Person {
         if (!(o instanceof Teacher)) return false;
         if (!super.equals(o)) return false;
         Teacher teacher = (Teacher) o;
-        return salary == teacher.salary &&
+        return experience == teacher.experience &&
                 subject == teacher.subject;
     }
 
     @Override
     public String toString() {
-        return surname + " " + age + " yo from " + country + ", " +
-                "teacher of " + subject + " with salary " + salary;
+        return "Teacher{" +
+                "surname='" + surname + '\'' +
+                ", age=" + age +
+                ", country=" + country +
+                ", experience=" + experience +
+                ", subject=" + subject +
+                '}';
     }
 
     public enum Subject{
-        MATHS, COMPUTER_SCIENCE, MATHEMATICAL_LOGIC;
+        MATHEMATICAL_ANALYSIS, COMPUTER_SCIENCE, MATHEMATICAL_LOGIC;
     }
 }

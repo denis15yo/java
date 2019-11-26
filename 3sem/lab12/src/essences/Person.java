@@ -1,18 +1,20 @@
 package essences;
 
-import java.util.Objects;
-
 public abstract class Person implements Comparable<Person>{
     String surname;
     int age;
     Country country;
 
-    public Person() {
+    Person() {
     }
-    public Person(String surname, int age, Country country) {
+    Person(String surname, int age, Country country) {
         this.surname = surname;
         this.age = age;
         this.country = country;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import myExceptions.EmtyContainerException;
 
@@ -56,6 +57,16 @@ public class AggregationContainer<T extends Comparable<T>> implements Iterable<T
         }
 
         return maxElem;
+    }
+
+    public int countIf(Predicate<T> pred){
+        int count = 0;
+        for(T elem : this){
+            if(pred.test(elem)){
+                ++count;
+            }
+        }
+        return count;
     }
 
     @Override
