@@ -1,0 +1,8 @@
+Шилович 18 MALE first 10
+Марцинковский 18 MALE third 8
+Ненартович 18 MALE fourth 9
+Дорошко 18 FEMALE first 9
+Шилович 18 MALE second 10
+Шилович 17 MALE second 7
+Шилович 18 MALE second 10
+Шилович 17 MALE second 10
