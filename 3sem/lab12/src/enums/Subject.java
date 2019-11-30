@@ -1,5 +1,0 @@
-package enums;
-
-public enum Subject {
-    MATHEMATICAL_ANALYSIS, COMPUTER_SCIENCE, MATHEMATICAL_LOGIC;
-}
