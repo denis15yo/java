@@ -18,6 +18,8 @@ public class TwoListsPanel extends JPanel {
         super(new BorderLayout());
         left = new JList<>(leftModel);
         right = new JList<>(rightModel);
+        left.setFont(new Font(getFont().getFontName(), Font.ITALIC, 15)); //LucidaGrande - стандартный маковский шрифт
+        right.setFont(new Font(getFont().getFontName(), Font.ITALIC, 15));
 
 
         add(left, BorderLayout.WEST);
