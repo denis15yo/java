@@ -8,6 +8,7 @@ import myUtil.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Demo {
@@ -32,6 +33,7 @@ public class Demo {
         for (Person p : container) {
             System.out.println(p);
         }
+        Student tested = new Student("Шилович", 18, Gender.MALE, "second", 10);
         //container.sort(Person::compareTo);
         //Collections.sort(container);
 
@@ -39,6 +41,7 @@ public class Demo {
 //        for (Person p : container) {
 //            System.out.println(p);
 //        }
+//        System.out.println(Collections.binarySearch(container, tested));
         try{
             Person minPerson = container.min();
             Person maxPerson = container.max();
@@ -50,7 +53,7 @@ public class Demo {
         catch(EmtyContainerException e){
             System.out.println(e.getMessage());
         }
-        Student tested = new Student("Шилович", 18, Gender.MALE, "second", 10);
+
         System.out.print("Count of tested student: ");
         System.out.println(container.countIf(tested::equals));
         //System.out.println(Collections.frequency(container, tested));
