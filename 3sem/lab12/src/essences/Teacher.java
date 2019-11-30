@@ -1,5 +1,8 @@
 package essences;
 
+import enums.Gender;
+import enums.Subject;
+
 public class Teacher extends Person {
     private int experience;
     private Subject subject;
@@ -7,8 +10,8 @@ public class Teacher extends Person {
     public Teacher() {
         super();
     }
-    public Teacher(String surname, int age, Country country, int experience, Subject subject) {
-        super(surname, age, country);
+    public Teacher(String surname, int age, Gender gender, int experience, Subject subject) {
+        super(surname, age, gender);
         this.experience = experience;
         this.subject = subject;
     }
@@ -28,13 +31,9 @@ public class Teacher extends Person {
         return "Teacher{" +
                 "surname='" + surname + '\'' +
                 ", age=" + age +
-                ", country=" + country +
+                ", country=" + gender +
                 ", experience=" + experience +
                 ", subject=" + subject +
                 '}';
-    }
-
-    public enum Subject{
-        MATHEMATICAL_ANALYSIS, COMPUTER_SCIENCE, MATHEMATICAL_LOGIC;
     }
 }

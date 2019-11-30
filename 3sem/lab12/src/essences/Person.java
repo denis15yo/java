@@ -1,16 +1,18 @@
 package essences;
 
+import enums.Gender;
+
 public abstract class Person implements Comparable<Person>{
     String surname;
     int age;
-    Country country;
+    Gender gender;
 
     Person() {
     }
-    Person(String surname, int age, Country country) {
+    Person(String surname, int age, Gender gender) {
         this.surname = surname;
         this.age = age;
-        this.country = country;
+        this.gender = gender;
     }
 
     public int getAge() {
@@ -24,7 +26,7 @@ public abstract class Person implements Comparable<Person>{
         Person person = (Person) o;
         return age == person.age &&
                 surname.equals(person.surname) &&
-                country == person.country;
+                gender == person.gender;
     }
 
     @Override
@@ -38,11 +40,7 @@ public abstract class Person implements Comparable<Person>{
             return current;
         }
 
-        return country.compareTo(o.country);
-    }
-
-    public enum Country{
-        BELARUS, RUSSIA, USA;
+        return gender.compareTo(o.gender);
     }
 }
 

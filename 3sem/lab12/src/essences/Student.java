@@ -1,5 +1,7 @@
 package essences;
 
+import enums.Gender;
+
 public class Student extends Person {
     private String group;
     private int ball;
@@ -8,8 +10,8 @@ public class Student extends Person {
         super();
     }
 
-    public Student(String surname, int age, Country country, String group, int ball) {
-        super(surname, age, country);
+    public Student(String surname, int age, Gender gender, String group, int ball) {
+        super(surname, age, gender);
         this.group = group;
         this.ball = ball;
     }
@@ -29,9 +31,15 @@ public class Student extends Person {
         return "Student{" +
                 "surname='" + surname + '\'' +
                 ", age=" + age +
-                ", country=" + country +
+                ", country=" + gender +
                 ", group='" + group + '\'' +
                 ", ball=" + ball +
                 '}';
     }
+
+
+//    @Override
+//    public int compareTo(Person o) {
+//        return super.compareTo(o);
+//    }
 }

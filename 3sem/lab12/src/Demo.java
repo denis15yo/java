@@ -1,5 +1,5 @@
-import containers.AggregationContainer;
 import containers.ExtendedContainer;
+import enums.Gender;
 import essences.Person;
 import essences.Student;
 import myExceptions.EmtyContainerException;
@@ -8,7 +8,6 @@ import myUtil.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Demo {
@@ -43,18 +42,17 @@ public class Demo {
         try{
             Person minPerson = container.min();
             Person maxPerson = container.max();
-            System.out.print("Min by surname: ");
+            System.out.print("Min person: ");
             System.out.println(minPerson);
-            System.out.print("Max by surname: ");
+            System.out.print("Max person: ");
             System.out.println(maxPerson);
         }
         catch(EmtyContainerException e){
             System.out.println(e.getMessage());
         }
-        Student tested = new Student("Шилович", 18, Person.Country.USA, "second", 10);
+        Student tested = new Student("Шилович", 18, Gender.MALE, "second", 10);
         System.out.print("Count of tested student: ");
-        //System.out.println(container.countIf(e -> e.getAge() > 20));
-        System.out.print(container.countIf(tested::equals));
+        System.out.println(container.countIf(tested::equals));
         //System.out.println(Collections.frequency(container, tested));
     }
 }

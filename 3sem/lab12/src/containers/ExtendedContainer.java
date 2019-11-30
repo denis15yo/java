@@ -4,6 +4,7 @@ import myExceptions.EmtyContainerException;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.function.Predicate;
 
 public class ExtendedContainer<T extends Comparable<T>> extends ArrayList<T> {
@@ -21,29 +22,13 @@ public class ExtendedContainer<T extends Comparable<T>> extends ArrayList<T> {
         if(size() == 0) {
             throw new EmtyContainerException();
         }
-
-        T minElem = get(0);
-        for(T elem : this){
-            if(elem.compareTo(minElem) < 0){
-                minElem = elem;
-            }
-        }
-
-        return minElem;
+        return Collections.min(this);
     }
     public T max() throws EmtyContainerException {
         if(size() == 0) {
             throw new EmtyContainerException();
         }
-
-        T maxElem = get(0);
-        for(T elem : this){
-            if(elem.compareTo(maxElem) > 0){
-                maxElem = elem;
-            }
-        }
-
-        return maxElem;
+        return Collections.max(this);
     }
 
     public int countIf(Predicate<T> pred){
