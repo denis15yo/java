@@ -14,6 +14,7 @@ public class ButtonsPanel extends JPanel implements MouseListener {
         int size = width * height;
         for(int i = 1; i <= size; ++i){
             ButtonEx current = new ButtonEx(i, randColor());
+            current.setPreferredSize(new Dimension(50, 50));
             add(current);
             current.addMouseListener(this);
         }
