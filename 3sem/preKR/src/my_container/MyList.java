@@ -6,7 +6,6 @@ import trees.Kind;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 
 public class MyList<T extends AbstractTree> extends ArrayList<T> {
     public MyList(int initialCapacity) {
@@ -19,7 +18,8 @@ public class MyList<T extends AbstractTree> extends ArrayList<T> {
     }
 
     public void print(){
-        stream().sorted(Comparator.comparingInt(AbstractTree::getCount)).forEach(AbstractTree::print);
+        //stream().sorted(Comparator.comparingInt(()).forEachOrdered(AbstractTree::print);
+        stream().sorted((o1, o2) -> o2.getCount() - o1.getCount()).forEachOrdered(AbstractTree::print);
     }
     public int frequency(T key){
         return Collections.frequency(this, key);

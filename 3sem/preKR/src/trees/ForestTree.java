@@ -27,7 +27,17 @@ public class ForestTree extends AbstractTree {
     }
 
     @Override
-    public void print() {
+    public String toString() {
+        return "ForestTree{" +
+                "name='" + name + '\'' +
+                ", count=" + count +
+                ", kind=" + kind +
+                ", wood=" + wood +
+                '}';
+    }
 
+    @Override
+    public void print() {
+        System.out.println(toString());
     }
 }

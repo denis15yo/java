@@ -28,7 +28,17 @@ public class FruitTree extends AbstractTree {
     }
 
     @Override
-    public void print() {
+    public String toString() {
+        return "FruitTree{" +
+                "name='" + name + '\'' +
+                ", count=" + count +
+                ", kind=" + kind +
+                ", harvest=" + harvest +
+                '}';
+    }
 
+    @Override
+    public void print() {
+        System.out.println(toString());
     }
 }

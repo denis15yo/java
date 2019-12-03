@@ -3,9 +3,9 @@ package trees;
 import java.util.Objects;
 
 public abstract class AbstractTree{
-    private String name;
-    private int count;
-    private Kind kind;
+    protected String name;
+    protected int count;
+    protected Kind kind;
 
     public AbstractTree() {
     }
