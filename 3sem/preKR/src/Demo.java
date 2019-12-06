@@ -25,7 +25,7 @@ public class Demo {
                 fruitTrees.add(Parser.parseToFruitTree(scFruitTree.nextLine()));
             }
         }
-        catch (FileNotFoundException | ParserException e) {
+        catch (FileNotFoundException | ParserException | IllegalArgumentException e) {
             System.out.println("Некорректный входной файл. Программа заверешена.");
             System.exit(0);
         }

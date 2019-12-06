@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class TwoListsPanel extends JPanel {
     private JList<String> left;
     private JList<String> right;
@@ -21,23 +22,46 @@ public class TwoListsPanel extends JPanel {
         left.setFont(new Font(getFont().getFontName(), Font.ITALIC, 15)); //LucidaGrande - стандартный маковский шрифт
         right.setFont(new Font(getFont().getFontName(), Font.ITALIC, 15));
 
+        JScrollPane leftScroll = new JScrollPane(left);
+        JScrollPane rightScroll = new JScrollPane(right);
 
-        add(left, BorderLayout.WEST);
-        add(right, BorderLayout.EAST);
+
+        add(leftScroll, BorderLayout.WEST);
+        add(rightScroll, BorderLayout.EAST);
         add(toRightButton, BorderLayout.NORTH);
         add(toLeftButton, BorderLayout.SOUTH);
 
-        final String[] DATA1 = {"Chrome", "Firefox", "Internet Explorer ", "Safari",
-                "Opera", "Morrowind", "Hitman", "CMR", "NFS Undercover",
-                "Star Wars", "Call of Duty"
+        final String[] LEFT_DATA = {
+                "Bryan Cranston",
+                "Anna Gunn",
+                "Aaron Paul",
+                "Dean Norris",
+                "Betsy Brandt",
+                "RJ Mitte",
+               "Bob Odenkirk",
+                "Giancarlo Esposito",
+                "Jonathan Banks",
+                "Laura Fraser",
+                "Jesse Plemons"
         };
 
-        final String[] DATA2 = {"Windows", "Mac OS", "Ubuntu", "Arena",
-                "Dagerfall", "Dagerfall", "MS Office", "Open Office ",
+        final String[] RIGHT_DATA = {
+                "Stewart A. Lyons",
+                "Sam Catlin",
+                "John Shiban",
+                "Peter Gould",
+                "George Mastras",
+                "Thomas Schnauz",
+                "Melissa Bernstein",
+                "Diane Mercer",
+                "Bryan Cranston",
+                "Moira Walley-Beckett",
+                "Karen Moore",
+                "Patty Lin"
         };
 
-        leftModel.addAll(Arrays.asList(DATA1));
-        rightModel.addAll(Arrays.asList(DATA2));
+        leftModel.addAll(Arrays.asList(LEFT_DATA));
+        rightModel.addAll(Arrays.asList(RIGHT_DATA));
 
         ButtonsListener buttonsListener = new ButtonsListener();
         toLeftButton.addActionListener(buttonsListener);

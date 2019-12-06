@@ -6,7 +6,7 @@ import trees.FruitTree;
 import trees.Kind;
 
 public class Parser {
-    public static ForestTree parseToForestTree(String str) throws ParserException {
+    public static ForestTree parseToForestTree(String str) throws ParserException, IllegalArgumentException {
         String[] fields = str.split("\\s+");
         if(fields.length != 4){
             throw new ParserException();
