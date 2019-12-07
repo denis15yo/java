@@ -1,0 +1,4 @@
+BMW         PETROL      12  2018    SEDAN
+Renault     DIESEL      9   2010    COUPE
+Mercedes    PETROL      10  2018    HATCHBACK
+Opel        DIESEL      7   2006    SEDAN

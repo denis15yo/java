@@ -1,0 +1,3 @@
+MAZ     PETROL  20  2005    2000    8
+BelAz   PETROL  18  2010    4000    10
+MAZ     DIESEL  15  2018    5000    8
