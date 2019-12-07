@@ -1,4 +1,5 @@
 import my_container.MyList;
+import my_exceptions.EmtyContainerException;
 import my_exceptions.ParserException;
 import my_util.Parser;
 import trees.ForestTree;
@@ -32,12 +33,20 @@ public class Demo {
 
         forestTrees.print();
         System.out.println(forestTrees.frequency(new ForestTree("Сосна", 10, Kind.ХВОЙНОЕ, 8)));
-        System.out.println(forestTrees.min());
+        try {
+            System.out.println(forestTrees.min());
+        } catch (EmtyContainerException e) {
+            System.err.println(e.getMessage());;
+        }
         System.out.println(forestTrees.sum(Kind.ХВОЙНОЕ));
 
         fruitTrees.print();
         System.out.println(fruitTrees.frequency(new FruitTree("Сосна", 10, Kind.ХВОЙНОЕ, 9)));
-        System.out.println(fruitTrees.min());
+        try {
+            System.out.println(fruitTrees.min());
+        } catch (EmtyContainerException e) {
+            System.err.println(e.getMessage());
+        }
         System.out.println(fruitTrees.sum(Kind.ЛИСТВЕННОЕ));
 
     }

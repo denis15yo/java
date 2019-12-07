@@ -6,6 +6,7 @@ import trees.Kind;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import my_exceptions.EmtyContainerException;
 
 public class MyList<T extends AbstractTree> extends ArrayList<T> {
     public MyList(int initialCapacity) {
@@ -24,7 +25,10 @@ public class MyList<T extends AbstractTree> extends ArrayList<T> {
     public int frequency(T key){
         return Collections.frequency(this, key);
     }
-    public T min(){
+    public T min() throws EmtyContainerException {
+        if(isEmpty()){
+            throw new EmtyContainerException();
+        }
         return Collections.min(this, (o1, o2) -> {
             if(o1.getCount() != o2.getCount()){
                 return o1.getCount() - o2.getCount();
