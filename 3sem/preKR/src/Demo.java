@@ -26,6 +26,9 @@ public class Demo {
                 fruitTrees.add(Parser.parseToFruitTree(scFruitTree.nextLine()));
             }
         }
+        catch(NumberFormatException e){
+            System.err.println("lol");
+        }
         catch (FileNotFoundException | ParserException | IllegalArgumentException e) {
             System.out.println("Некорректный входной файл. Программа заверешена.");
             System.exit(0);
