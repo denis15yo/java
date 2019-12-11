@@ -52,42 +52,44 @@ public class ToyFilterPanel extends JPanel {
         maxAgeSlider.setPaintLabels(true);
         maxAgeSlider.addChangeListener(e -> maxAgeLabel.setText("Max: " + maxAgeSlider.getValue()));
 
-        JPanel ageBoundsPanel = new JPanel(new BorderLayout());
-        JPanel minAgeBoundPanel = new JPanel(new BorderLayout());
-        JPanel maxAgeBoundPanel = new JPanel(new BorderLayout());
-        minAgeBoundPanel.add(minAgeSlider, BorderLayout.NORTH);
-        minAgeBoundPanel.add(minAgeLabel, BorderLayout.SOUTH);
-        maxAgeBoundPanel.add(maxAgeSlider, BorderLayout.NORTH);
-        maxAgeBoundPanel.add(maxAgeLabel, BorderLayout.SOUTH);
-        ageBoundsPanel.add(minAgeBoundPanel, BorderLayout.WEST);
-        ageBoundsPanel.add(maxAgeBoundPanel, BorderLayout.EAST);
+        Box ageBoundsBox = Box.createHorizontalBox();
+        Box minAgeBoundPanel = Box.createVerticalBox();
+        Box maxAgeBoundPanel = Box.createVerticalBox();
+        minAgeBoundPanel.add(minAgeSlider);
+        minAgeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        minAgeBoundPanel.add(minAgeLabel);
+        maxAgeBoundPanel.add(maxAgeSlider);
+        maxAgeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        maxAgeBoundPanel.add(maxAgeLabel);
+        ageBoundsBox.add(minAgeBoundPanel);
+        ageBoundsBox.add(maxAgeBoundPanel);
 
         JPanel maxCostPanel = new JPanel();
         maxCostPanel.add(maxCostLabel);
         maxCostPanel.add(maxCostField);
 
-        ageBoundsPanel.add(maxCostPanel, BorderLayout.SOUTH);
+        Box filterBox = Box.createVerticalBox();
+        filterBox.add(ageBoundsBox);
+        filterBox.add(maxCostPanel);
+        filterBox.add(filterButton);
 
-        filterButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int minCheck = minAgeSlider.getValue();
-                int maxCheck = maxAgeSlider.getValue();
-                int maxCost = Integer.parseInt(maxCostField.getText());
-                filterModel = new Vector<>();
-                for(Toy elem : data){
-                    if(elem.getAgeBounds().check(new AgeBounds(minCheck, maxCheck)) && elem.getCost() <= maxCost){
-                        filterModel.add(elem);
-                    }
+
+        filterButton.addActionListener(e -> {
+            int minCheck = minAgeSlider.getValue();
+            int maxCheck = maxAgeSlider.getValue();
+            int maxCost = Integer.parseInt(maxCostField.getText());
+            filterModel = new Vector<>();
+            for(Toy elem : data){
+                if(elem.getAgeBounds().check(new AgeBounds(minCheck, maxCheck)) && elem.getCost() <= maxCost){
+                    filterModel.add(elem);
                 }
-                filterToys.setListData(filterModel);
             }
+            filterToys.setListData(filterModel);
         });
 
-        add(ageBoundsPanel,BorderLayout.CENTER);
+        add(filterBox, BorderLayout.CENTER);
         add(toyJList, BorderLayout.WEST);
         add(filterToys, BorderLayout.EAST);
-        add(filterButton, BorderLayout.SOUTH);
     }
 
     public void loadFromFile(File file) throws FileNotFoundException {
@@ -95,4 +97,8 @@ public class ToyFilterPanel extends JPanel {
         toyJList.setListData(data);
     }
 
+    public void addToy(Toy t){
+        data.add(t);
+        toyJList.setListData(data);
+    }
 }

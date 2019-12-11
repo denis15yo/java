@@ -11,6 +11,12 @@ public class Toy {
         this.ageBounds = ageBounds;
     }
 
+    public Toy() {
+        name = "";
+        cost = 0;
+        ageBounds = new AgeBounds();
+    }
+
     @Override
     public String toString() {
         return name + "\t" + cost + "\t" + ageBounds;

@@ -9,6 +9,11 @@ public class AgeBounds {
         this.max = max;
     }
 
+    public AgeBounds() {
+        min = 0;
+        max = 100;
+    }
+
     @Override
     public String toString() {
         return "[" + min + ", " + max + "]";
