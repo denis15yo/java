@@ -5,8 +5,6 @@ import essenses.Toy;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import java.io.FileNotFoundException;
@@ -17,8 +15,8 @@ import my_util.Reader;
 public class ToyFilterPanel extends JPanel {
     JSlider minAgeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 40, 20);
     JSlider maxAgeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 40, 20);
-    JLabel minAgeLabel = new JLabel("Min: ");
-    JLabel maxAgeLabel = new JLabel("Max: ");
+    JLabel minAgeLabel = new JLabel("Min: " + minAgeSlider.getValue());
+    JLabel maxAgeLabel = new JLabel("Max: " + maxAgeSlider.getValue());
     JTextField maxCostField;
     JLabel maxCostLabel;
     JButton filterButton;
@@ -38,7 +36,7 @@ public class ToyFilterPanel extends JPanel {
         maxCostField = new JTextField(10);
         maxCostLabel = new JLabel("Max cost:");
         filterButton = new JButton("Filter!");
-        toyJList.setFont( new Font("monospaced", Font.PLAIN, 10) );
+        toyJList.setFont( new Font("monospaced", Font.PLAIN, 13) );
 
         toyJList.setPreferredSize(new Dimension(200, 0));
         filterToys.setPreferredSize(new Dimension(200, 0));
@@ -76,21 +74,26 @@ public class ToyFilterPanel extends JPanel {
 
 
         filterButton.addActionListener(e -> {
-            int minCheck = minAgeSlider.getValue();
-            int maxCheck = maxAgeSlider.getValue();
+            AgeBounds checkBounds = new AgeBounds(minAgeSlider.getValue(), maxAgeSlider.getValue());
             int maxCost = Integer.parseInt(maxCostField.getText());
             filterModel = new Vector<>();
             for(Toy elem : data){
-                if(elem.getAgeBounds().check(new AgeBounds(minCheck, maxCheck)) && elem.getCost() <= maxCost){
+                if(elem.getAgeBounds().check(checkBounds)&& elem.getCost() <= maxCost){
                     filterModel.add(elem);
                 }
             }
             filterToys.setListData(filterModel);
         });
 
+        JScrollPane scrollToys = new JScrollPane(toyJList,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        JScrollPane scrollFilterToys = new JScrollPane(filterToys,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
         add(filterBox, BorderLayout.CENTER);
-        add(toyJList, BorderLayout.WEST);
-        add(filterToys, BorderLayout.EAST);
+        add(scrollToys, BorderLayout.WEST);
+        add(scrollFilterToys, BorderLayout.EAST);
     }
 
     public void loadFromFile(File file) throws FileNotFoundException {
