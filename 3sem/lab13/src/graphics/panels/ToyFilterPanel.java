@@ -38,6 +38,7 @@ public class ToyFilterPanel extends JPanel {
         maxCostField = new JTextField(10);
         maxCostLabel = new JLabel("Max cost:");
         filterButton = new JButton("Filter!");
+        toyJList.setFont( new Font("monospaced", Font.PLAIN, 10) );
 
         toyJList.setPreferredSize(new Dimension(200, 0));
         filterToys.setPreferredSize(new Dimension(200, 0));

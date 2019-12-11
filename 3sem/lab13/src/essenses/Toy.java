@@ -19,7 +19,7 @@ public class Toy {
 
     @Override
     public String toString() {
-        return name + "\t" + cost + "\t" + ageBounds;
+        return String.format("%-10s%-10s%-10s", name, cost, ageBounds);
     }
 
     public String getName() {
