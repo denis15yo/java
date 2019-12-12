@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
         super("Toy Filter");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocation(300, 300);
-        setResizable(false);
+//        setResizable(false);
 
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");

@@ -38,8 +38,8 @@ public class ToyFilterPanel extends JPanel {
         filterButton = new JButton("Filter!");
         toyJList.setFont( new Font("monospaced", Font.PLAIN, 13) );
 
-        toyJList.setPreferredSize(new Dimension(200, 0));
-        filterToys.setPreferredSize(new Dimension(200, 0));
+        toyJList.setPreferredSize(new Dimension(200, 300));
+        filterToys.setPreferredSize(new Dimension(200, 300));
 
         minAgeSlider.setMajorTickSpacing(5);
         minAgeSlider.setPaintTicks(true);
@@ -67,10 +67,15 @@ public class ToyFilterPanel extends JPanel {
         maxCostPanel.add(maxCostLabel);
         maxCostPanel.add(maxCostField);
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(filterButton);
+
         Box filterBox = Box.createVerticalBox();
         filterBox.add(ageBoundsBox);
         filterBox.add(maxCostPanel);
-        filterBox.add(filterButton);
+        filterBox.add(buttonPanel);
+        JPanel filterPanel = new JPanel();
+        filterPanel.add(filterBox);
 
 
         filterButton.addActionListener(e -> {
@@ -91,7 +96,8 @@ public class ToyFilterPanel extends JPanel {
         JScrollPane scrollFilterToys = new JScrollPane(filterToys,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        add(filterBox, BorderLayout.CENTER);
+
+        add(filterPanel, BorderLayout.CENTER);
         add(scrollToys, BorderLayout.WEST);
         add(scrollFilterToys, BorderLayout.EAST);
     }
