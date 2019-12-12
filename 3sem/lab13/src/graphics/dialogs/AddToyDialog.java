@@ -4,7 +4,6 @@ import essenses.AgeBounds;
 import essenses.Toy;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class AddToyDialog extends JDialog {
     JLabel nameLabel = new JLabel("Name:");

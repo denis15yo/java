@@ -8,8 +8,8 @@ import java.awt.*;
 import java.io.File;
 
 import java.io.FileNotFoundException;
-import java.util.Vector;
 
+import models.ToysTableModel;
 import my_util.Reader;
 
 public class ToyFilterPanel extends JPanel {
@@ -21,25 +21,23 @@ public class ToyFilterPanel extends JPanel {
     JLabel maxCostLabel;
     JButton filterButton;
 
-    JList<Toy> toyJList;
-    Vector<Toy> data;
-
-    JList<Toy> filterToys;
-    Vector<Toy> filterModel;
+    JTable toysTable;
+    ToysTableModel model;
+    JTable filteredToysTable;
+    ToysTableModel filteredModel;
 
     public ToyFilterPanel() {
         super(new BorderLayout());
-        data = new Vector<>();
-        filterModel = new Vector<>();
-        toyJList = new JList<>(data);
-        filterToys = new JList<>(filterModel);
+
+        model = new ToysTableModel();
+        toysTable = new JTable(model);
+        filteredModel = new ToysTableModel();
+        filteredToysTable = new JTable(filteredModel);
+
         maxCostField = new JTextField(10);
         maxCostLabel = new JLabel("Max cost:");
         filterButton = new JButton("Filter!");
-        toyJList.setFont( new Font("monospaced", Font.PLAIN, 13) );
 
-        toyJList.setPreferredSize(new Dimension(200, 300));
-        filterToys.setPreferredSize(new Dimension(200, 300));
 
         minAgeSlider.setMajorTickSpacing(5);
         minAgeSlider.setPaintTicks(true);
@@ -81,34 +79,25 @@ public class ToyFilterPanel extends JPanel {
         filterButton.addActionListener(e -> {
             AgeBounds checkBounds = new AgeBounds(minAgeSlider.getValue(), maxAgeSlider.getValue());
             int maxCost = Integer.parseInt(maxCostField.getText());
-            filterModel = new Vector<>();
-            for(Toy elem : data){
-                if(elem.getAgeBounds().check(checkBounds)&& elem.getCost() <= maxCost){
-                    filterModel.add(elem);
-                }
-            }
-            filterToys.setListData(filterModel);
+            model.stream().filter(f -> f.getAgeBounds().check(checkBounds) && f.getCost() <= maxCost).forEach(f -> filteredModel.addToy(f));
+            filteredModel.fireTableDataChanged();
         });
 
-        JScrollPane scrollToys = new JScrollPane(toyJList,
-                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        JScrollPane scrollFilterToys = new JScrollPane(filterToys,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+        //toysTable.setFillsViewportHeight(true);
 
         add(filterPanel, BorderLayout.CENTER);
-        add(scrollToys, BorderLayout.WEST);
-        add(scrollFilterToys, BorderLayout.EAST);
+        add(new JScrollPane(toysTable), BorderLayout.WEST);
+        add(new JScrollPane(filteredToysTable), BorderLayout.EAST);
     }
 
     public void loadFromFile(File file) throws FileNotFoundException {
-        data = Reader.readVectorOfToys(file);
-        toyJList.setListData(data);
+        model.setList(Reader.readVectorOfToys(file));
+        model.fireTableDataChanged();
     }
 
     public void addToy(Toy t){
-        data.add(t);
-        toyJList.setListData(data);
+        model.addToy(t);
+        model.fireTableDataChanged();
     }
 }
