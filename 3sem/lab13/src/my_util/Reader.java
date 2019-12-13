@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Reader {
-    public static List<Toy> readVectorOfToys(File file) throws FileNotFoundException {
+    public static List<Toy> readListOfToys(File file) throws FileNotFoundException, NumberFormatException {
         List<Toy> l = new ArrayList<>();
         Scanner sc = new Scanner(file);
         while(sc.hasNextLine()){

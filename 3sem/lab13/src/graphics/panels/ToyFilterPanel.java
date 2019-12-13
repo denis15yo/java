@@ -63,21 +63,29 @@ public class ToyFilterPanel extends JPanel {
         filterButton.addActionListener(e -> {
             if(!maxCostField.getText().matches("\\s*")){
                 try{
-                    AgeBounds checkBounds = new AgeBounds(minAgeSlider.getValue(), maxAgeSlider.getValue());
-                    int maxCost = Integer.parseInt(maxCostField.getText());
-                    filteredModel.setList(model.stream().filter(f -> f.getAgeBounds().check(checkBounds) && f.getCost() <= maxCost).
-                            collect(Collectors.toList()));
-                    filteredModel.fireTableDataChanged();
+                    int minAge = minAgeSlider.getValue();
+                    int maxAge = maxAgeSlider.getValue();
+                    if(minAge <= maxAge){
+                        AgeBounds verifiable = new AgeBounds(minAge, maxAge);
+                        int maxCost = Integer.parseInt(maxCostField.getText());
+                        filteredModel.setList
+                                (model.stream().
+                                filter(f -> ageCheck(f.getAgeBounds(), verifiable) && f.getCost() <= maxCost).
+                                collect(Collectors.toList()));
+                        filteredModel.fireTableDataChanged();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Некорректные возрастные границы",
+                                "Ошибка", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 catch(NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Некорректная максимальная стоимость!", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Некорректная максимальная стоимость!",
+                            "Ошибка", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
         });
-
-
-        //toysTable.setFillsViewportHeight(true);
 
         add(filterPanel, BorderLayout.CENTER);
         add(new JScrollPane(toysTable), BorderLayout.WEST);
@@ -85,7 +93,7 @@ public class ToyFilterPanel extends JPanel {
     }
 
     public void loadFromFile(File file) throws FileNotFoundException {
-        model.setList(Reader.readVectorOfToys(file));
+        model.setList(Reader.readListOfToys(file));
         model.fireTableDataChanged();
     }
 
@@ -100,8 +108,11 @@ public class ToyFilterPanel extends JPanel {
         filteredModel = new ToysTableModel();
         filteredToysTable = new JTable(filteredModel);
 
-        toysTable.setPreferredScrollableViewportSize(new Dimension(300, 0));
-        filteredToysTable.setPreferredScrollableViewportSize(new Dimension(300, 0));
+        toysTable.setPreferredScrollableViewportSize(toysTable.getPreferredSize());
+        filteredToysTable.setPreferredScrollableViewportSize(filteredToysTable.getPreferredSize());
+
+        toysTable.setFillsViewportHeight(true);
+        filteredToysTable.setFillsViewportHeight(true);
 
         maxCostField = new JTextField(10);
         maxCostLabel = new JLabel("Максимальная цена:");
@@ -119,5 +130,9 @@ public class ToyFilterPanel extends JPanel {
         maxAgeSlider.setMajorTickSpacing(5);
         maxAgeSlider.setPaintTicks(true);
         maxAgeSlider.setPaintLabels(true);
+    }
+
+    public boolean ageCheck(AgeBounds acceptable, AgeBounds verifiable){
+        return verifiable.getMin() >= acceptable.getMin() && verifiable.getMax() <= acceptable.getMax();
     }
 }

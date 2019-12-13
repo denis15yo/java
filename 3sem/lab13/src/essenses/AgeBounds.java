@@ -19,10 +19,6 @@ public class AgeBounds {
         return "[" + min + ", " + max + "]";
     }
 
-    public boolean check(AgeBounds o){
-        return o.getMin() >= min && o.getMax() <= max;
-    }
-
     public int getMin() {
         return min;
     }

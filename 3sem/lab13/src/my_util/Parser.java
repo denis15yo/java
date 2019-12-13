@@ -4,7 +4,7 @@ import essenses.AgeBounds;
 import essenses.Toy;
 
 public class Parser {
-    public static Toy parseToToy(String str){
+    public static Toy parseToToy(String str) throws NumberFormatException{
         String[] strFields = str.split("\\s+");
         return new Toy(
                 strFields[0],

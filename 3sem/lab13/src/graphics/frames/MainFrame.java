@@ -1,7 +1,7 @@
 package graphics.frames;
 
 import essenses.Toy;
-import graphics.dialogs.AddToyDialog;
+import graphics.dialogs.ToyAddDialog;
 import graphics.panels.ToyFilterPanel;
 
 import javax.swing.*;
@@ -37,7 +37,10 @@ public class MainFrame extends JFrame {
                 if(dlg.getFiles().length == 1){
                     toyFilterPanel.loadFromFile(dlg.getFiles()[0]);
                 }
-            } catch (IOException ignored) {
+            } catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "Некорректные данные в файле",
+                        "Ошибка", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Ошибка открытия файла",
                         "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
@@ -45,7 +48,7 @@ public class MainFrame extends JFrame {
         });
 
         addDataMenu.addActionListener(e -> {
-            AddToyDialog dlg = new AddToyDialog(this);
+            ToyAddDialog dlg = new ToyAddDialog(this);
             dlg.setVisible(true);
             Toy addedToy = dlg.getAddedToy();
             if(addedToy != null){

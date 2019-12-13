@@ -5,7 +5,7 @@ import essenses.Toy;
 
 import javax.swing.*;
 
-public class AddToyDialog extends JDialog {
+public class ToyAddDialog extends JDialog {
     JLabel nameLabel;
     JLabel costLabel;
     JLabel minAgeLabel;
@@ -23,7 +23,7 @@ public class AddToyDialog extends JDialog {
     public Toy getAddedToy() {
         return addedToy;
     }
-    public AddToyDialog(JFrame owner) {
+    public ToyAddDialog(JFrame owner) {
         super(owner, "Добавление", true);
         setResizable(false);
         setLocation(owner.getX(), owner.getY());
