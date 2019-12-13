@@ -13,10 +13,10 @@ import models.ToysTableModel;
 import my_util.Reader;
 
 public class ToyFilterPanel extends JPanel {
-    JSlider minAgeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 40, 20);
-    JSlider maxAgeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 40, 20);
-    JLabel minAgeLabel = new JLabel("Min: " + minAgeSlider.getValue());
-    JLabel maxAgeLabel = new JLabel("Max: " + maxAgeSlider.getValue());
+    JSlider minAgeSlider;
+    JSlider maxAgeSlider;
+    JLabel minAgeLabel;
+    JLabel maxAgeLabel;
     JTextField maxCostField;
     JLabel maxCostLabel;
     JButton filterButton;
@@ -28,26 +28,7 @@ public class ToyFilterPanel extends JPanel {
 
     public ToyFilterPanel() {
         super(new BorderLayout());
-
-        model = new ToysTableModel();
-        toysTable = new JTable(model);
-        filteredModel = new ToysTableModel();
-        filteredToysTable = new JTable(filteredModel);
-
-        maxCostField = new JTextField(10);
-        maxCostLabel = new JLabel("Max cost:");
-        filterButton = new JButton("Filter!");
-
-
-        minAgeSlider.setMajorTickSpacing(5);
-        minAgeSlider.setPaintTicks(true);
-        minAgeSlider.setPaintLabels(true);
-        minAgeSlider.addChangeListener(e -> minAgeLabel.setText("Min: " + minAgeSlider.getValue()));
-
-        maxAgeSlider.setMajorTickSpacing(5);
-        maxAgeSlider.setPaintTicks(true);
-        maxAgeSlider.setPaintLabels(true);
-        maxAgeSlider.addChangeListener(e -> maxAgeLabel.setText("Max: " + maxAgeSlider.getValue()));
+        initComponents();
 
         Box ageBoundsBox = Box.createHorizontalBox();
         Box minAgeBoundPanel = Box.createVerticalBox();
@@ -76,6 +57,9 @@ public class ToyFilterPanel extends JPanel {
         filterPanel.add(filterBox);
 
 
+        minAgeSlider.addChangeListener(e -> minAgeLabel.setText("Min: " + minAgeSlider.getValue()));
+        maxAgeSlider.addChangeListener(e -> maxAgeLabel.setText("Max: " + maxAgeSlider.getValue()));
+
         filterButton.addActionListener(e -> {
             AgeBounds checkBounds = new AgeBounds(minAgeSlider.getValue(), maxAgeSlider.getValue());
             int maxCost = Integer.parseInt(maxCostField.getText());
@@ -99,5 +83,29 @@ public class ToyFilterPanel extends JPanel {
     public void addToy(Toy t){
         model.addToy(t);
         model.fireTableDataChanged();
+    }
+
+    public void initComponents(){
+        model = new ToysTableModel();
+        toysTable = new JTable(model);
+        filteredModel = new ToysTableModel();
+        filteredToysTable = new JTable(filteredModel);
+
+        maxCostField = new JTextField(10);
+        maxCostLabel = new JLabel("Max cost:");
+        filterButton = new JButton("Filter!");
+
+        minAgeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 40, 20);
+        maxAgeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 40, 20);
+        minAgeLabel = new JLabel("Min: " + minAgeSlider.getValue());
+        maxAgeLabel = new JLabel("Max: " + maxAgeSlider.getValue());
+
+        minAgeSlider.setMajorTickSpacing(5);
+        minAgeSlider.setPaintTicks(true);
+        minAgeSlider.setPaintLabels(true);
+
+        maxAgeSlider.setMajorTickSpacing(5);
+        maxAgeSlider.setPaintTicks(true);
+        maxAgeSlider.setPaintLabels(true);
     }
 }
