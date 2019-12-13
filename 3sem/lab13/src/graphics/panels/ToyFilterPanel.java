@@ -57,8 +57,8 @@ public class ToyFilterPanel extends JPanel {
         JPanel filterPanel = new JPanel();
         filterPanel.add(filterBox);
 
-        minAgeSlider.addChangeListener(e -> minAgeLabel.setText("Min: " + minAgeSlider.getValue()));
-        maxAgeSlider.addChangeListener(e -> maxAgeLabel.setText("Max: " + maxAgeSlider.getValue()));
+        minAgeSlider.addChangeListener(e -> minAgeLabel.setText("Минимум: " + minAgeSlider.getValue()));
+        maxAgeSlider.addChangeListener(e -> maxAgeLabel.setText("Максимум: " + maxAgeSlider.getValue()));
 
         filterButton.addActionListener(e -> {
             if(!maxCostField.getText().matches("\\s*")){
@@ -70,7 +70,7 @@ public class ToyFilterPanel extends JPanel {
                     filteredModel.fireTableDataChanged();
                 }
                 catch(NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Некорректное поле Max cost!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Некорректная максимальная стоимость!", "Ошибка", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -104,13 +104,13 @@ public class ToyFilterPanel extends JPanel {
         filteredToysTable.setPreferredScrollableViewportSize(new Dimension(300, 0));
 
         maxCostField = new JTextField(10);
-        maxCostLabel = new JLabel("Max cost:");
-        filterButton = new JButton("Filter!");
+        maxCostLabel = new JLabel("Максимальная цена:");
+        filterButton = new JButton("Найти!");
 
         minAgeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 40, 20);
         maxAgeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 40, 20);
-        minAgeLabel = new JLabel("Min: " + minAgeSlider.getValue());
-        maxAgeLabel = new JLabel("Max: " + maxAgeSlider.getValue());
+        minAgeLabel = new JLabel("Минимум: " + minAgeSlider.getValue());
+        maxAgeLabel = new JLabel("Максимум: " + maxAgeSlider.getValue());
 
         minAgeSlider.setMajorTickSpacing(5);
         minAgeSlider.setPaintTicks(true);

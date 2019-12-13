@@ -16,7 +16,7 @@ public class AddToyDialog extends JDialog {
     JTextField minAgeField;
     JTextField maxAgeField;
 
-    JButton addButton = new JButton("Add");
+    JButton addButton;
 
     private Toy addedToy;
 
@@ -24,7 +24,7 @@ public class AddToyDialog extends JDialog {
         return addedToy;
     }
     public AddToyDialog(JFrame owner) {
-        super(owner, "Add toy", true);
+        super(owner, "Добавление", true);
         setResizable(false);
         setLocation(owner.getX(), owner.getY());
 
@@ -69,12 +69,12 @@ public class AddToyDialog extends JDialog {
                     this.dispose();
                 }
                 else{
-                    JOptionPane.showMessageDialog(this, "Некорректные данные", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Некорректные данные", "Ошибка", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
             catch(NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Некорректные данные!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Некорректные данные!", "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -83,16 +83,16 @@ public class AddToyDialog extends JDialog {
     }
 
     public void initComponents(){
-        nameLabel = new JLabel("Name:");
-        costLabel = new JLabel("Cost:");
-        minAgeLabel = new JLabel("Min age:");
-        maxAgeLabel = new JLabel("Max age:");
+        nameLabel = new JLabel("Название:");
+        costLabel = new JLabel("Стоимость:");
+        minAgeLabel = new JLabel("Минимальный возраст:");
+        maxAgeLabel = new JLabel("Максимальный возраст:");
 
         nameField = new JTextField(10);
         costField = new JTextField(5);
         minAgeField = new JTextField(2);
         maxAgeField = new JTextField(2);
 
-        addButton = new JButton("Add");
+        addButton = new JButton("Добавить");
     }
 }

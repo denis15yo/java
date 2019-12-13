@@ -33,11 +33,11 @@ public class ToysTableModel extends AbstractTableModel {
     public String getColumnName(int columnIndex) {
         switch (columnIndex){
             case 0 :
-                return "Name";
+                return "Название";
             case 1:
-                return "Cost";
+                return "Стоимость";
             case 2:
-                return "Age Bounds";
+                return "Возраст";
         }
         return null;
     }

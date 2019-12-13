@@ -17,7 +17,7 @@ public class MainFrame extends JFrame {
 
     ToyFilterPanel toyFilterPanel = new ToyFilterPanel();
     public MainFrame() {
-        super("Toy Filter");
+        super("Фильтр игрушек");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocation(200, 350);
         setResizable(false);
@@ -31,15 +31,15 @@ public class MainFrame extends JFrame {
 
         openMenu.addActionListener(e -> {
             try {
-                FileDialog dlg = new FileDialog(this, "Open", FileDialog.LOAD);
+                FileDialog dlg = new FileDialog(this, "Открыть", FileDialog.LOAD);
                 dlg.setFilenameFilter((dir, name) -> name.matches(".+\\.txt"));
                 dlg.setVisible(true);
                 if(dlg.getFiles().length == 1){
                     toyFilterPanel.loadFromFile(dlg.getFiles()[0]);
                 }
             } catch (IOException ignored) {
-                JOptionPane.showMessageDialog(null, "Opening Error",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ошибка открытия файла",
+                        "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
 
         });
@@ -61,9 +61,9 @@ public class MainFrame extends JFrame {
 
     public void initComponents(){
         menuBar = new JMenuBar();
-        fileMenu = new JMenu("File");
-        dataMenu = new JMenu("Data");
-        openMenu = new JMenuItem("Open");
-        addDataMenu = new JMenuItem("Add");
+        fileMenu = new JMenu("Файл");
+        dataMenu = new JMenu("Данные");
+        openMenu = new JMenuItem("Открыть");
+        addDataMenu = new JMenuItem("Добавить");
     }
 }
