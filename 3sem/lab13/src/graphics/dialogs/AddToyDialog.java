@@ -6,15 +6,15 @@ import essenses.Toy;
 import javax.swing.*;
 
 public class AddToyDialog extends JDialog {
-    JLabel nameLabel = new JLabel("Name:");
-    JLabel costLabel = new JLabel("Cost:");
-    JLabel minAgeLabel = new JLabel("Min age:");
-    JLabel maxAgeLabel = new JLabel("Max age:");
+    JLabel nameLabel;
+    JLabel costLabel;
+    JLabel minAgeLabel;
+    JLabel maxAgeLabel;
 
-    JTextField nameField = new JTextField(10);
-    JTextField costField = new JTextField(5);
-    JTextField minAgeField = new JTextField(2);
-    JTextField maxAgeField = new JTextField(2);
+    JTextField nameField;
+    JTextField costField;
+    JTextField minAgeField;
+    JTextField maxAgeField;
 
     JButton addButton = new JButton("Add");
 
@@ -27,6 +27,8 @@ public class AddToyDialog extends JDialog {
         super(owner, "Add toy", true);
         setResizable(false);
         setLocation(owner.getX(), owner.getY());
+
+        initComponents();
 
         Box mainBox = Box.createVerticalBox();
         Box ageBoundsBox = Box.createHorizontalBox();
@@ -72,7 +74,7 @@ public class AddToyDialog extends JDialog {
 
             }
             catch(NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Некорректные данные!", "Eroor", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Некорректные данные!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -80,7 +82,17 @@ public class AddToyDialog extends JDialog {
         pack();
     }
 
-    public void execute(){
-        this.setVisible(true);
+    public void initComponents(){
+        nameLabel = new JLabel("Name:");
+        costLabel = new JLabel("Cost:");
+        minAgeLabel = new JLabel("Min age:");
+        maxAgeLabel = new JLabel("Max age:");
+
+        nameField = new JTextField(10);
+        costField = new JTextField(5);
+        minAgeField = new JTextField(2);
+        maxAgeField = new JTextField(2);
+
+        addButton = new JButton("Add");
     }
 }

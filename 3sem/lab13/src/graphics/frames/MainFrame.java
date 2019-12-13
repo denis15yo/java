@@ -9,6 +9,12 @@ import java.awt.*;
 import java.io.IOException;
 
 public class MainFrame extends JFrame {
+    JMenuBar menuBar;
+    JMenu fileMenu;
+    JMenu dataMenu;
+    JMenuItem openMenu;
+    JMenuItem addDataMenu;
+
     ToyFilterPanel toyFilterPanel = new ToyFilterPanel();
     public MainFrame() {
         super("Toy Filter");
@@ -16,11 +22,7 @@ public class MainFrame extends JFrame {
         setLocation(200, 350);
         setResizable(false);
 
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenu dataMenu = new JMenu("Data");
-        JMenuItem openMenu = new JMenuItem("Open");
-        JMenuItem addDataMenu = new JMenuItem("Add");
+        initComponents();
 
         menuBar.add(fileMenu);
         menuBar.add(dataMenu);
@@ -32,7 +34,9 @@ public class MainFrame extends JFrame {
                 FileDialog dlg = new FileDialog(this, "Open", FileDialog.LOAD);
                 dlg.setFilenameFilter((dir, name) -> name.matches(".+\\.txt"));
                 dlg.setVisible(true);
-                toyFilterPanel.loadFromFile(dlg.getFiles()[0]);
+                if(dlg.getFiles().length == 1){
+                    toyFilterPanel.loadFromFile(dlg.getFiles()[0]);
+                }
             } catch (IOException ignored) {
                 JOptionPane.showMessageDialog(null, "Opening Error",
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -42,7 +46,7 @@ public class MainFrame extends JFrame {
 
         addDataMenu.addActionListener(e -> {
             AddToyDialog dlg = new AddToyDialog(this);
-            dlg.execute();
+            dlg.setVisible(true);
             Toy addedToy = dlg.getAddedToy();
             if(addedToy != null){
                 toyFilterPanel.addToy(dlg.getAddedToy());
@@ -53,5 +57,13 @@ public class MainFrame extends JFrame {
         add(toyFilterPanel);
 
         pack();
+    }
+
+    public void initComponents(){
+        menuBar = new JMenuBar();
+        fileMenu = new JMenu("File");
+        dataMenu = new JMenu("Data");
+        openMenu = new JMenuItem("Open");
+        addDataMenu = new JMenuItem("Add");
     }
 }
