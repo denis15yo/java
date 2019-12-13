@@ -1,5 +1,6 @@
 package graphics.frames;
 
+import essenses.Toy;
 import graphics.dialogs.AddToyDialog;
 import graphics.panels.ToyFilterPanel;
 
@@ -12,8 +13,8 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         super("Toy Filter");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocation(300, 300);
-//        setResizable(false);
+        setLocation(200, 350);
+        setResizable(false);
 
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
@@ -42,7 +43,10 @@ public class MainFrame extends JFrame {
         addDataMenu.addActionListener(e -> {
             AddToyDialog dlg = new AddToyDialog(this);
             dlg.execute();
-            toyFilterPanel.addToy(dlg.getAddedToy());
+            Toy addedToy = dlg.getAddedToy();
+            if(addedToy != null){
+                toyFilterPanel.addToy(dlg.getAddedToy());
+            }
         });
 
         setJMenuBar(menuBar);

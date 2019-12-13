@@ -18,7 +18,7 @@ public class AddToyDialog extends JDialog {
 
     JButton addButton = new JButton("Add");
 
-    private Toy addedToy = new Toy();
+    private Toy addedToy;
 
     public Toy getAddedToy() {
         return addedToy;
@@ -58,9 +58,22 @@ public class AddToyDialog extends JDialog {
         mainBox.add(buttonPanel);
 
         addButton.addActionListener(e -> {
-            addedToy = new Toy(nameField.getText(), Integer.parseInt(costField.getText()),
-                    new AgeBounds(Integer.parseInt(minAgeField.getText()), Integer.parseInt(maxAgeField.getText())));
-            this.dispose();
+            try{
+                int minAge = Integer.parseInt(minAgeField.getText());
+                int maxAge = Integer.parseInt(maxAgeField.getText());
+                if(minAge <= maxAge){
+                    addedToy = new Toy(nameField.getText(), Integer.parseInt(costField.getText()),
+                            new AgeBounds(minAge, maxAge));
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Некорректные данные", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+            catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "Некорректные данные!", "Eroor", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         add(mainBox);

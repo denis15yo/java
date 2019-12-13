@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.File;
 
 import java.io.FileNotFoundException;
+import java.util.stream.Collectors;
 
 import models.ToysTableModel;
 import my_util.Reader;
@@ -56,15 +57,23 @@ public class ToyFilterPanel extends JPanel {
         JPanel filterPanel = new JPanel();
         filterPanel.add(filterBox);
 
-
         minAgeSlider.addChangeListener(e -> minAgeLabel.setText("Min: " + minAgeSlider.getValue()));
         maxAgeSlider.addChangeListener(e -> maxAgeLabel.setText("Max: " + maxAgeSlider.getValue()));
 
         filterButton.addActionListener(e -> {
-            AgeBounds checkBounds = new AgeBounds(minAgeSlider.getValue(), maxAgeSlider.getValue());
-            int maxCost = Integer.parseInt(maxCostField.getText());
-            model.stream().filter(f -> f.getAgeBounds().check(checkBounds) && f.getCost() <= maxCost).forEach(f -> filteredModel.addToy(f));
-            filteredModel.fireTableDataChanged();
+            if(!maxCostField.getText().matches("\\s*")){
+                try{
+                    AgeBounds checkBounds = new AgeBounds(minAgeSlider.getValue(), maxAgeSlider.getValue());
+                    int maxCost = Integer.parseInt(maxCostField.getText());
+                    filteredModel.setList(model.stream().filter(f -> f.getAgeBounds().check(checkBounds) && f.getCost() <= maxCost).
+                            collect(Collectors.toList()));
+                    filteredModel.fireTableDataChanged();
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(this, "Некорректное поле Max cost!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
         });
 
 
@@ -90,6 +99,9 @@ public class ToyFilterPanel extends JPanel {
         toysTable = new JTable(model);
         filteredModel = new ToysTableModel();
         filteredToysTable = new JTable(filteredModel);
+
+        toysTable.setPreferredScrollableViewportSize(new Dimension(300, 0));
+        filteredToysTable.setPreferredScrollableViewportSize(new Dimension(300, 0));
 
         maxCostField = new JTextField(10);
         maxCostLabel = new JLabel("Max cost:");
