@@ -36,53 +36,9 @@ public class Reader {
         NodeList toys = document.getDocumentElement().getElementsByTagName("Toy");
 
         for(int i = 0; i < toys.getLength(); ++i){
-            NodeList fields = toys.item(i).getChildNodes();
-
-            String name = "";
-            int cost = 0;
-            AgeBounds ageBounds = new AgeBounds();
-
-            for(int j = 1; j < fields.getLength(); j += 2){
-                Node field = fields.item(j);
-                String fieldName = field.getNodeName();
-
-                switch(fieldName) {
-                    case "name":
-                        name = field.getTextContent();
-                        break;
-                    case "cost":
-                        cost = Integer.parseInt(field.getTextContent());
-                        break;
-                    case "ageBounds":
-                        ageBounds = parseNodeAgeBounds(field);
-                        break;
-                }
-            }
-            res.add(new Toy(name, cost, ageBounds));
+            res.add(Parser.parseNodeToToy(toys.item(i)));
         }
 
         return res;
-    }
-
-    private static AgeBounds parseNodeAgeBounds(Node node){
-        int minAge = 0;
-        int maxAge = 0;
-
-        NodeList fields = node.getChildNodes();
-        for(int i = 1; i < fields.getLength(); i += 2){
-            Node field = fields.item(i);
-            String fieldName = field.getNodeName();
-
-            switch(fieldName) {
-                case "minAge":
-                    minAge = Integer.parseInt(field.getTextContent());
-                    break;
-                case "maxAge":
-                    maxAge = Integer.parseInt(field.getTextContent());
-                    break;
-            }
-        }
-
-        return new AgeBounds(minAge, maxAge);
     }
 }

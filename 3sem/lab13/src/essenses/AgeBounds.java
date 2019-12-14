@@ -26,4 +26,12 @@ public class AgeBounds {
     public int getMax() {
         return max;
     }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
 }
