@@ -37,33 +37,28 @@ public class Reader {
 
         for(int i = 0; i < toys.getLength(); ++i){
             NodeList fields = toys.item(i).getChildNodes();
-            System.out.println(fields.getLength());
-            for(int j = 0; j < fields.getLength(); ++j){
-                System.out.println("Name: " + fields.item(j).getNodeName());
-                System.out.println("Value: " + fields.item(j).getNodeValue());
-            }
-            for(int j = 0; j < fields.getLength(); ++j){
-                String name = "";
-                int cost = 0;
-                AgeBounds ageBounds = new AgeBounds();
 
+            String name = "";
+            int cost = 0;
+            AgeBounds ageBounds = new AgeBounds();
+
+            for(int j = 1; j < fields.getLength(); j += 2){
                 Node field = fields.item(j);
                 String fieldName = field.getNodeName();
 
                 switch(fieldName) {
                     case "name":
-                        name = field.getNodeValue();
+                        name = field.getTextContent();
                         break;
                     case "cost":
-                        cost = Integer.parseInt(field.getNodeValue());
+                        cost = Integer.parseInt(field.getTextContent());
                         break;
                     case "ageBounds":
                         ageBounds = parseNodeAgeBounds(field);
                         break;
                 }
-
-                res.add(new Toy(name, cost, ageBounds));
             }
+            res.add(new Toy(name, cost, ageBounds));
         }
 
         return res;
@@ -74,16 +69,16 @@ public class Reader {
         int maxAge = 0;
 
         NodeList fields = node.getChildNodes();
-        for(int i = 0; i < fields.getLength(); ++i){
+        for(int i = 1; i < fields.getLength(); i += 2){
             Node field = fields.item(i);
             String fieldName = field.getNodeName();
 
             switch(fieldName) {
                 case "minAge":
-                    minAge = Integer.parseInt(field.getNodeValue());
+                    minAge = Integer.parseInt(field.getTextContent());
                     break;
                 case "maxAge":
-                    maxAge = Integer.parseInt(field.getNodeValue());
+                    maxAge = Integer.parseInt(field.getTextContent());
                     break;
             }
         }
