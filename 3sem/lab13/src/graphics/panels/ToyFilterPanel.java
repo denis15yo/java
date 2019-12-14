@@ -4,28 +4,31 @@ import essenses.AgeBounds;
 import essenses.Toy;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.File;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 import models.ToysTableModel;
 import my_util.Reader;
+import org.xml.sax.SAXException;
 
 public class ToyFilterPanel extends JPanel {
-    JSlider minAgeSlider;
-    JSlider maxAgeSlider;
-    JLabel minAgeLabel;
-    JLabel maxAgeLabel;
-    JTextField maxCostField;
-    JLabel maxCostLabel;
-    JButton filterButton;
+    private JSlider minAgeSlider;
+    private JSlider maxAgeSlider;
+    private JLabel minAgeLabel;
+    private JLabel maxAgeLabel;
+    private JTextField maxCostField;
+    private JLabel maxCostLabel;
+    private JButton filterButton;
 
-    JTable toysTable;
-    ToysTableModel model;
-    JTable filteredToysTable;
-    ToysTableModel filteredModel;
+    private JTable toysTable;
+    private ToysTableModel model;
+    private JTable filteredToysTable;
+    private ToysTableModel filteredModel;
 
     public ToyFilterPanel() {
         super(new BorderLayout());
@@ -94,6 +97,11 @@ public class ToyFilterPanel extends JPanel {
 
     public void loadFromFile(File file) throws FileNotFoundException {
         model.setList(Reader.readListOfToys(file));
+        model.fireTableDataChanged();
+    }
+
+    public void loadFromXML(File file) throws IOException, SAXException, ParserConfigurationException {
+        model.setList(Reader.readListOfToysFromXML(file));
         model.fireTableDataChanged();
     }
 

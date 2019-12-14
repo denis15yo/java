@@ -1,9 +1,9 @@
 package essenses;
 
 public class Toy {
-    String name;
-    int cost;
-    AgeBounds ageBounds;
+    private String name;
+    private int cost;
+    private AgeBounds ageBounds;
 
     public Toy(String name, int cost, AgeBounds ageBounds) {
         this.name = name;

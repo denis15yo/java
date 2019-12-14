@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class ToysTableModel extends AbstractTableModel {
-    List<Toy> list;
+    private List<Toy> list;
 
     public ToysTableModel() {
         list = new ArrayList<>();

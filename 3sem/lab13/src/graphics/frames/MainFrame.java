@@ -3,17 +3,24 @@ package graphics.frames;
 import essenses.Toy;
 import graphics.dialogs.ToyAddDialog;
 import graphics.panels.ToyFilterPanel;
+import models.ToysTableModel;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class MainFrame extends JFrame {
-    JMenuBar menuBar;
-    JMenu fileMenu;
-    JMenu dataMenu;
-    JMenuItem openMenu;
-    JMenuItem addDataMenu;
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
+    private JMenu dataMenu;
+    private JMenuItem openMenu;
+    private JMenuItem addDataMenu;
+
+    private ToysTableModel model;
+    private ToysTableModel FilteredToysModel;
 
     ToyFilterPanel toyFilterPanel = new ToyFilterPanel();
     public MainFrame() {
@@ -32,12 +39,19 @@ public class MainFrame extends JFrame {
         openMenu.addActionListener(e -> {
             try {
                 FileDialog dlg = new FileDialog(this, "Открыть", FileDialog.LOAD);
-                dlg.setFilenameFilter((dir, name) -> name.matches(".+\\.txt"));
+                dlg.setFilenameFilter((dir, name) -> name.matches(".+\\.((txt)|(xml))"));
                 dlg.setVisible(true);
                 if(dlg.getFiles().length == 1){
-                    toyFilterPanel.loadFromFile(dlg.getFiles()[0]);
+                    File file = dlg.getFiles()[0];
+                    if(file.getName().endsWith(".txt")){
+                        toyFilterPanel.loadFromFile(file);
+                    }
+                    else{
+                        toyFilterPanel.loadFromXML(file);
+                    }
+
                 }
-            } catch(NumberFormatException ex){
+            } catch(NumberFormatException | SAXException |ParserConfigurationException ex){
                 JOptionPane.showMessageDialog(this, "Некорректные данные в файле",
                         "Ошибка", JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {

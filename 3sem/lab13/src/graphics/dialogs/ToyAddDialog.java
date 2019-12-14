@@ -6,17 +6,17 @@ import essenses.Toy;
 import javax.swing.*;
 
 public class ToyAddDialog extends JDialog {
-    JLabel nameLabel;
-    JLabel costLabel;
-    JLabel minAgeLabel;
-    JLabel maxAgeLabel;
+    private JLabel nameLabel;
+    private JLabel costLabel;
+    private JLabel minAgeLabel;
+    private JLabel maxAgeLabel;
 
-    JTextField nameField;
-    JTextField costField;
-    JTextField minAgeField;
-    JTextField maxAgeField;
+    private JTextField nameField;
+    private JTextField costField;
+    private JTextField minAgeField;
+    private JTextField maxAgeField;
 
-    JButton addButton;
+    private JButton addButton;
 
     private Toy addedToy;
 
