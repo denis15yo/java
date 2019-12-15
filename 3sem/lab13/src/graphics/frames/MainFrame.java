@@ -33,8 +33,6 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         super("Фильтр игрушек");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocation(200, 350);
-//        setResizable(false);
 
         initComponents();
 
@@ -87,6 +85,8 @@ public class MainFrame extends JFrame {
         add(tabbedPane);
 
         pack();
+        setLocationRelativeTo(null);
+        //setResizable(false);
     }
 
     private void initComponents(){
