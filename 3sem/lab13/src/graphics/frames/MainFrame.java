@@ -2,8 +2,11 @@ package graphics.frames;
 
 import essenses.Toy;
 import graphics.dialogs.ToyAddDialog;
+import graphics.panels.DataPanel;
 import graphics.panels.ToyFilterPanel;
-import models.ToysTableModel;
+import interfaces.Updatable;
+import models.ToysModel;
+import myUtil.Reader;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
@@ -11,6 +14,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainFrame extends JFrame {
     private JMenuBar menuBar;
@@ -19,15 +24,17 @@ public class MainFrame extends JFrame {
     private JMenuItem openMenu;
     private JMenuItem addDataMenu;
 
-    private ToysTableModel model;
-    private ToysTableModel FilteredToysModel;
+    private DataPanel dataPanel;
+    private ToyFilterPanel toyFilterPanel;
 
-    ToyFilterPanel toyFilterPanel = new ToyFilterPanel();
+    private ToysModel model;
+    private List<Updatable> listeners = new ArrayList<>();
+
     public MainFrame() {
         super("Фильтр игрушек");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocation(200, 350);
-        setResizable(false);
+//        setResizable(false);
 
         initComponents();
 
@@ -35,6 +42,11 @@ public class MainFrame extends JFrame {
         menuBar.add(dataMenu);
         fileMenu.add(openMenu);
         dataMenu.add(addDataMenu);
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("Данные", dataPanel);
+        tabbedPane.addTab("Фильтр", toyFilterPanel);
+
 
         openMenu.addActionListener(e -> {
             try {
@@ -44,12 +56,12 @@ public class MainFrame extends JFrame {
                 if(dlg.getFiles().length == 1){
                     File file = dlg.getFiles()[0];
                     if(file.getName().endsWith(".txt")){
-                        toyFilterPanel.loadFromFile(file);
+                        model.setData(Reader.readListOfToys(file));
                     }
                     else{
-                        toyFilterPanel.loadFromXML(file);
+                        model.setData(Reader.readListOfToysFromXML(file));
                     }
-
+                    updateAll();
                 }
             } catch(NumberFormatException | SAXException |ParserConfigurationException ex){
                 JOptionPane.showMessageDialog(this, "Некорректные данные в файле",
@@ -66,21 +78,36 @@ public class MainFrame extends JFrame {
             dlg.setVisible(true);
             Toy addedToy = dlg.getAddedToy();
             if(addedToy != null){
-                toyFilterPanel.addToy(dlg.getAddedToy());
+                model.add(addedToy);
+                updateAll();
             }
         });
 
         setJMenuBar(menuBar);
-        add(toyFilterPanel);
+        add(tabbedPane);
 
         pack();
     }
 
-    public void initComponents(){
+    private void initComponents(){
         menuBar = new JMenuBar();
         fileMenu = new JMenu("Файл");
         dataMenu = new JMenu("Данные");
         openMenu = new JMenuItem("Открыть");
         addDataMenu = new JMenuItem("Добавить");
+
+        model = new ToysModel();
+        dataPanel = new DataPanel(model);
+        toyFilterPanel = new ToyFilterPanel(model);
+        addListener(dataPanel);
+        addListener(toyFilterPanel);
+    }
+
+    private void updateAll(){
+        listeners.forEach(Updatable::update);
+    }
+
+    private void addListener(Updatable u){
+        listeners.add(u);
     }
 }

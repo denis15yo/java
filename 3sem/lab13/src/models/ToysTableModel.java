@@ -4,24 +4,17 @@ import essenses.AgeBounds;
 import essenses.Toy;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 
 public class ToysTableModel extends AbstractTableModel {
-    private List<Toy> list;
+    private ToysModel toysModel;
 
-    public ToysTableModel() {
-        list = new ArrayList<>();
-    }
-
-    public ToysTableModel(List<Toy> list) {
-        this.list = list;
+    public ToysTableModel(ToysModel toysModel){
+        this.toysModel = toysModel;
     }
 
     @Override
     public int getRowCount() {
-        return list.size();
+        return toysModel.getSize();
     }
 
     @Override
@@ -60,9 +53,9 @@ public class ToysTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex){
-            case 0 : return list.get(rowIndex).getName();
-            case 1 : return list.get(rowIndex).getCost();
-            case 2 : return list.get(rowIndex).getAgeBounds();
+            case 0 : return toysModel.get(rowIndex).getName();
+            case 1 : return toysModel.get(rowIndex).getCost();
+            case 2 : return toysModel.get(rowIndex).getAgeBounds();
         }
         return null;
     }
@@ -73,15 +66,11 @@ public class ToysTableModel extends AbstractTableModel {
     }
 
     public void addToy(Toy t){
-        list.add(t);
+        toysModel.add(t);
     }
 
-    public void setList(List<Toy> list) {
-        this.list = list;
-    }
-
-    public Stream<Toy> stream(){
-        return list.stream();
+    public void clear(){
+        toysModel.clear();
     }
 }
 
