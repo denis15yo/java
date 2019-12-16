@@ -9,6 +9,10 @@ import javax.swing.table.TableModel;
 public class WorkersTableModel extends AbstractTableModel {
     WorkersModel workersModel;
 
+    public WorkersTableModel() {
+        workersModel = new WorkersModel();
+    }
+
     public WorkersTableModel(WorkersModel workersModel) {
         this.workersModel = workersModel;
     }

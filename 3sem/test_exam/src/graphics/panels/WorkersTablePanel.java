@@ -13,11 +13,11 @@ public abstract class WorkersTablePanel extends JPanel implements Updatable {
 
     protected WorkersModel workersModel;
 
-    public WorkersTablePanel(WorkersModel workersModel) {
+    public WorkersTablePanel(WorkersModel workersModel, WorkersTableModel workersTableModel) {
         super(new BorderLayout());
         this.workersModel = workersModel;
 
-        workersTableModel = new WorkersTableModel(workersModel);
+        this.workersTableModel = workersTableModel;
         workersTable = new JTable(workersTableModel);
         workersTable.setPreferredScrollableViewportSize(workersTable.getPreferredSize());
         workersTable.setFillsViewportHeight(true);

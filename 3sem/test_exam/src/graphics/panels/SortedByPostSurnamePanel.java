@@ -1,10 +1,11 @@
 package graphics.panels;
 
 import models.WorkersModel;
+import models.WorkersTableModel;
 
 public class SortedByPostSurnamePanel extends WorkersTablePanel {
     public SortedByPostSurnamePanel(WorkersModel workersModel) {
-        super(workersModel);
+        super(workersModel, new WorkersTableModel());
     }
 
     @Override
