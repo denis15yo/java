@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DataPanel extends JPanel implements Updatable {
+    @SuppressWarnings("FieldCanBeLocal")
     private JTable dataTable;
     private ToysTableModel dataTableModel;
 
@@ -16,6 +17,7 @@ public class DataPanel extends JPanel implements Updatable {
         dataTableModel = new ToysTableModel(toysModel);
         dataTable = new JTable(dataTableModel);
 
+        dataTable.setPreferredSize(new Dimension(0, 100));
         dataTable.setPreferredScrollableViewportSize(dataTable.getPreferredSize());
         dataTable.setFillsViewportHeight(true);
 

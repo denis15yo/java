@@ -14,12 +14,12 @@ public class ToyFilterPanel extends JPanel implements Updatable {
     private JSlider maxAgeSlider;
     private JLabel minAgeLabel;
     private JLabel maxAgeLabel;
-    private JTextField maxCostField;
     private JLabel maxCostLabel;
     private JSpinner maxCostSpinner;
 
     private ToysModel toysModel;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private JTable filteredToysTable;
     private ToysTableModel filteredTableModel;
 
@@ -28,12 +28,6 @@ public class ToyFilterPanel extends JPanel implements Updatable {
         initComponents();
 
         this.toysModel = toysModel;
-        filteredTableModel = new ToysTableModel(new ToysModel());
-        filteredToysTable = new JTable(filteredTableModel);
-
-        filteredToysTable.setPreferredSize(new Dimension(0, 100));
-        filteredToysTable.setPreferredScrollableViewportSize(filteredToysTable.getPreferredSize());
-        filteredToysTable.setFillsViewportHeight(true);
 
         Box ageBoundsBox = Box.createHorizontalBox();
         Box minAgeBoundPanel = Box.createVerticalBox();
@@ -49,7 +43,6 @@ public class ToyFilterPanel extends JPanel implements Updatable {
 
         JPanel maxCostPanel = new JPanel();
         maxCostPanel.add(maxCostLabel);
-//        maxCostPanel.add(maxCostField);
         maxCostPanel.add(maxCostSpinner);
 
         Box filterBox = Box.createVerticalBox();
@@ -58,12 +51,14 @@ public class ToyFilterPanel extends JPanel implements Updatable {
         JPanel filterPanel = new JPanel();
         filterPanel.add(filterBox);
 
-        minAgeSlider.addChangeListener(e -> minAgeLabel.setText("Минимум: " + minAgeSlider.getValue()));
-        maxAgeSlider.addChangeListener(e -> maxAgeLabel.setText("Максимум: " + maxAgeSlider.getValue()));
-
-        maxCostField.addActionListener(e -> update());
-        minAgeSlider.addChangeListener(e -> update());
-        maxAgeSlider.addChangeListener(e -> update());
+        minAgeSlider.addChangeListener(e -> {
+            minAgeLabel.setText("Минимум: " + minAgeSlider.getValue());
+            update();
+        });
+        maxAgeSlider.addChangeListener(e -> {
+            maxAgeLabel.setText("Максимум: " + maxAgeSlider.getValue());
+            update();
+        });
         maxCostSpinner.addChangeListener(e -> update());
 
         add(filterPanel, BorderLayout.NORTH);
@@ -72,7 +67,6 @@ public class ToyFilterPanel extends JPanel implements Updatable {
 
 
     public void initComponents(){
-        maxCostField = new JTextField("1000", 10);
         maxCostLabel = new JLabel("Максимальная цена:");
 
         maxCostSpinner = new JSpinner();
@@ -89,6 +83,13 @@ public class ToyFilterPanel extends JPanel implements Updatable {
         maxAgeSlider.setMajorTickSpacing(5);
         maxAgeSlider.setPaintTicks(true);
         maxAgeSlider.setPaintLabels(true);
+
+        filteredTableModel = new ToysTableModel(new ToysModel());
+        filteredToysTable = new JTable(filteredTableModel);
+
+        filteredToysTable.setPreferredSize(new Dimension(0, 100));
+        filteredToysTable.setPreferredScrollableViewportSize(filteredToysTable.getPreferredSize());
+        filteredToysTable.setFillsViewportHeight(true);
     }
 
     public boolean ageCheck(AgeBounds acceptable, AgeBounds verifiable){
@@ -102,7 +103,6 @@ public class ToyFilterPanel extends JPanel implements Updatable {
         int minAge = minAgeSlider.getValue();
         int maxAge = maxAgeSlider.getValue();
         AgeBounds verifiable = new AgeBounds(minAge, maxAge);
-//        int maxCost = Integer.parseInt(maxCostField.getText());
         int maxCost = (int) maxCostSpinner.getValue();
 
         for(Toy t : toysModel){

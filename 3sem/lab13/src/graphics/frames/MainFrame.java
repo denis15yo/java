@@ -20,7 +20,7 @@ import java.util.List;
 public class MainFrame extends JFrame {
     private JMenuBar menuBar;
     private JMenu fileMenu;
-    private JMenu dataMenu;
+    private JMenu editMenu;
     private JMenuItem openMenu;
     private JMenuItem addDataMenu;
 
@@ -37,9 +37,9 @@ public class MainFrame extends JFrame {
         initComponents();
 
         menuBar.add(fileMenu);
-        menuBar.add(dataMenu);
+        menuBar.add(editMenu);
         fileMenu.add(openMenu);
-        dataMenu.add(addDataMenu);
+        editMenu.add(addDataMenu);
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Данные", dataPanel);
@@ -92,7 +92,7 @@ public class MainFrame extends JFrame {
     private void initComponents(){
         menuBar = new JMenuBar();
         fileMenu = new JMenu("Файл");
-        dataMenu = new JMenu("Данные");
+        editMenu = new JMenu("Изменить");
         openMenu = new JMenuItem("Открыть");
         addDataMenu = new JMenuItem("Добавить");
 
