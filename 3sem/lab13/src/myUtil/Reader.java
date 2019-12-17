@@ -33,7 +33,7 @@ public class Reader {
         DocumentBuilderFactory f = DocumentBuilderFactory.newDefaultInstance();
         DocumentBuilder builder = f.newDocumentBuilder();
         Document document = builder.parse(file);
-        NodeList toys = document.getDocumentElement().getElementsByTagName("Toy");
+        NodeList toys = document.getDocumentElement().getElementsByTagName("toy");
 
         for(int i = 0; i < toys.getLength(); ++i){
             res.add(Parser.parseNodeToToy(toys.item(i)));

@@ -6,6 +6,7 @@ import graphics.panels.DataPanel;
 import graphics.panels.ToyFilterPanel;
 import interfaces.Updatable;
 import models.ToysModel;
+import myUtil.Exporter;
 import myUtil.Reader;
 import org.xml.sax.SAXException;
 
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame {
     private JMenu fileMenu;
     private JMenu editMenu;
     private JMenuItem openMenu;
+    private JMenuItem saveMenu;
     private JMenuItem addDataMenu;
 
     private DataPanel dataPanel;
@@ -39,6 +41,7 @@ public class MainFrame extends JFrame {
         menuBar.add(fileMenu);
         menuBar.add(editMenu);
         fileMenu.add(openMenu);
+        fileMenu.add(saveMenu);
         editMenu.add(addDataMenu);
 
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -71,6 +74,18 @@ public class MainFrame extends JFrame {
 
         });
 
+        saveMenu.addActionListener(e -> {
+            FileDialog dlg = new FileDialog(this, "Сохранение", FileDialog.SAVE);
+            dlg.setVisible(true);
+            if(dlg.getFiles().length == 1){
+                try {
+                    Exporter.exportToXML(model.getData(), dlg.getFiles()[0]);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Ошибка сохранения", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
         addDataMenu.addActionListener(e -> {
             ToyAddDialog dlg = new ToyAddDialog(this);
             dlg.setVisible(true);
@@ -94,6 +109,7 @@ public class MainFrame extends JFrame {
         fileMenu = new JMenu("Файл");
         editMenu = new JMenu("Изменить");
         openMenu = new JMenuItem("Открыть");
+        saveMenu = new JMenuItem("Сохранить");
         addDataMenu = new JMenuItem("Добавить");
 
         model = new ToysModel();

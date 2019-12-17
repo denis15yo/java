@@ -18,19 +18,17 @@ public class Parser {
 
         Node currentChild = node.getFirstChild();
         while(currentChild != null){
-            if(currentChild.getNodeType() == Node.ELEMENT_NODE) {
-                String childName = currentChild.getNodeName();
-                switch (childName) {
-                    case "name":
-                        toy.setName(currentChild.getTextContent());
-                        break;
-                    case "cost":
-                        toy.setCost(Integer.parseInt(currentChild.getTextContent()));
-                        break;
-                    case "ageBounds":
-                        toy.setAgeBounds(parseNodeToAgeBounds(currentChild));
-                        break;
-                }
+            String childName = currentChild.getNodeName();
+            switch (childName) {
+                case "name":
+                    toy.setName(currentChild.getTextContent());
+                    break;
+                case "cost":
+                    toy.setCost(Integer.parseInt(currentChild.getTextContent()));
+                    break;
+                case "ageBounds":
+                    toy.setAgeBounds(parseNodeToAgeBounds(currentChild));
+                    break;
             }
             currentChild = currentChild.getNextSibling();
         }
@@ -43,16 +41,14 @@ public class Parser {
 
         Node currentChild = node.getFirstChild();
         while(currentChild != null){
-            if(currentChild.getNodeType() == Node.ELEMENT_NODE){
-                String childName = currentChild.getNodeName();
-                switch(childName) {
-                    case "minAge":
-                        ageBounds.setMin(Integer.parseInt(currentChild.getTextContent()));
-                        break;
-                    case "maxAge":
-                        ageBounds.setMax(Integer.parseInt(currentChild.getTextContent()));
-                        break;
-                }
+            String childName = currentChild.getNodeName();
+            switch(childName) {
+                case "minAge":
+                    ageBounds.setMin(Integer.parseInt(currentChild.getTextContent()));
+                    break;
+                case "maxAge":
+                    ageBounds.setMax(Integer.parseInt(currentChild.getTextContent()));
+                    break;
             }
             currentChild = currentChild.getNextSibling();
         }
