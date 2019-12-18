@@ -26,7 +26,6 @@ public class ToyAddDialog extends JDialog {
     public ToyAddDialog(JFrame owner) {
         super(owner, "Добавление", true);
         setResizable(false);
-        setLocation(owner.getX(), owner.getY());
 
         initComponents();
 
@@ -80,6 +79,7 @@ public class ToyAddDialog extends JDialog {
 
         add(mainBox);
         pack();
+        setLocationRelativeTo(owner);
     }
 
     public void initComponents(){

@@ -1,6 +1,6 @@
 package graphics.panels;
 
-import interfaces.Updatable;
+import graphics.interfaces.Updatable;
 import models.ToysModel;
 import models.ToysTableModel;
 

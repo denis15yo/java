@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class Exporter {
-    public static void exportToXML(List<Toy> toys, File file) throws IOException {
+    public static void exportListOfToysToXML(List<Toy> toys, File file) throws IOException {
         FileWriter fileWriter = new FileWriter(file, true);
         fileWriter.write("<shop>\n");
         fileWriter.flush();

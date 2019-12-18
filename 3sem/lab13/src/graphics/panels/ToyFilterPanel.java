@@ -2,7 +2,7 @@ package graphics.panels;
 
 import essenses.AgeBounds;
 import essenses.Toy;
-import interfaces.Updatable;
+import graphics.interfaces.Updatable;
 import models.ToysModel;
 import models.ToysTableModel;
 
@@ -105,9 +105,11 @@ public class ToyFilterPanel extends JPanel implements Updatable {
         AgeBounds verifiable = new AgeBounds(minAge, maxAge);
         int maxCost = (int) maxCostSpinner.getValue();
 
-        for(Toy t : toysModel){
-            if(t.getCost() <= maxCost && ageCheck(t.getAgeBounds(), verifiable)){
-                filteredTableModel.addToy(t);
+        if(minAge <= maxAge){
+            for(Toy t : toysModel){
+                if(t.getCost() <= maxCost && ageCheck(t.getAgeBounds(), verifiable)){
+                    filteredTableModel.addToy(t);
+                }
             }
         }
         

@@ -4,7 +4,7 @@ import essenses.Toy;
 import graphics.dialogs.ToyAddDialog;
 import graphics.panels.DataPanel;
 import graphics.panels.ToyFilterPanel;
-import interfaces.Updatable;
+import graphics.interfaces.Updatable;
 import models.ToysModel;
 import myUtil.Exporter;
 import myUtil.Reader;
@@ -79,7 +79,7 @@ public class MainFrame extends JFrame {
             dlg.setVisible(true);
             if(dlg.getFiles().length == 1){
                 try {
-                    Exporter.exportToXML(model.getData(), dlg.getFiles()[0]);
+                    Exporter.exportListOfToysToXML(model.getData(), dlg.getFiles()[0]);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Ошибка сохранения", "Ошибка", JOptionPane.ERROR_MESSAGE);
                 }
