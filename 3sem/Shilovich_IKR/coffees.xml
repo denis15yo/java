@@ -1,0 +1,32 @@
+<shop>
+    <coffee coffeeType="GROUND">
+        <name>Nescafe</name>
+        <caffeine>100</caffeine>
+        <cost>500</cost>
+    </coffee>
+    <coffee coffeeType="BEANS">
+        <name>Jacobs</name>
+        <caffeine>200</caffeine>
+        <cost>550</cost>
+    </coffee>
+    <coffee coffeeType="BEANS">
+        <name>Kolumbia</name>
+        <caffeine>300</caffeine>
+        <cost>300</cost>
+    </coffee>
+    <coffee coffeeType="GROUND">
+        <name>Китайский</name>
+        <caffeine>100</caffeine>
+        <cost>1500</cost>
+    </coffee>
+    <coffee coffeeType="BEANS">
+        <name>Улун</name>
+        <caffeine>200</caffeine>
+        <cost>1000</cost>
+    </coffee>
+    <coffee coffeeType="BEANS">
+        <name>Lavazza</name>
+        <caffeine>150</caffeine>
+        <cost>500</cost>
+    </coffee>
+</shop>
