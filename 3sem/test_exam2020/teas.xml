@@ -1,0 +1,32 @@
+<shop>
+    <tea teaType="GREEN">
+        <name>Гринфилд</name>
+        <caffeine>100</caffeine>
+        <cost>500</cost>
+    </tea>
+    <tea teaType="GREEN">
+        <name>Ахмат</name>
+        <caffeine>200</caffeine>
+        <cost>550</cost>
+    </tea>
+    <tea teaType="BLACK">
+        <name>Липтон</name>
+        <caffeine>300</caffeine>
+        <cost>300</cost>
+    </tea>
+    <tea teaType="BLACK">
+        <name>Китайский</name>
+        <caffeine>100</caffeine>
+        <cost>1500</cost>
+    </tea>
+    <tea teaType="GREEN">
+        <name>Улун</name>
+        <caffeine>200</caffeine>
+        <cost>1000</cost>
+    </tea>
+    <tea teaType="BLACK">
+        <name>Гринфилд</name>
+        <caffeine>150</caffeine>
+        <cost>500</cost>
+    </tea>
+</shop>

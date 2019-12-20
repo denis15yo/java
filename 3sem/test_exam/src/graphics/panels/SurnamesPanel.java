@@ -18,9 +18,7 @@ public class SurnamesPanel extends JPanel implements Updatable {
         super(new BorderLayout());
         this.workersModel = workersModel;
         surnames = new JList<>();
-        JPanel panel = new JPanel();
-        panel.add(surnames);
-        add(panel, BorderLayout.CENTER);
+        add(surnames, BorderLayout.CENTER);
     }
 
     @Override
