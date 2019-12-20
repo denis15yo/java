@@ -6,15 +6,18 @@ import models.DrinksModel;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class SortedDrinksPanel extends JPanel {
-    private DrinksModel dataBase;
+//    private DrinksModel dataBase;
+    private List<Drink> dataBase;
 
     private JList<Drink> drinksList;
     private DefaultListModel<Drink> drinksListModel;
 
-    public SortedDrinksPanel(DrinksModel dataBase) {
+    public SortedDrinksPanel(List<Drink> dataBase) {
         super(new BorderLayout());
 
         this.dataBase = dataBase;
@@ -27,11 +30,11 @@ public class SortedDrinksPanel extends JPanel {
 
     public void update(){
         drinksListModel.clear();
-        dataBase.stream().sorted((l, r) -> {
+        drinksListModel.addAll(dataBase.stream().sorted((l, r) -> {
             if(l.getCost() != r.getCost()){
                 return r.getCost() - l.getCost();
             }
             return l.getName().compareTo(r.getName());
-        }).forEachOrdered(e -> drinksListModel.addElement(e));
+        }).collect(Collectors.toList()));
     }
 }

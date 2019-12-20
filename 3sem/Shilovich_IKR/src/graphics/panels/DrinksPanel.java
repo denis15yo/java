@@ -6,15 +6,17 @@ import models.DrinksModel;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class DrinksPanel extends JPanel {
-    private DrinksModel dataBase;
+//    private DrinksModel dataBase;
+    private List<Drink> dataBase;
 
     private JList<Drink> drinksList;
     private DefaultListModel<Drink> drinksListModel;
 
-    public DrinksPanel(DrinksModel dataBase) {
+    public DrinksPanel(List<Drink> dataBase) {
         super(new BorderLayout());
 
         this.dataBase = dataBase;
@@ -29,6 +31,6 @@ public class DrinksPanel extends JPanel {
 
     public void update(){
         drinksListModel.clear();
-        dataBase.forEach(e -> drinksListModel.addElement(e));
+        drinksListModel.addAll(dataBase);
     }
 }

@@ -1,5 +1,6 @@
 package graphics.frames;
 
+import essenses.Drink;
 import graphics.panels.DrinksPanel;
 import graphics.panels.MapPanel;
 import graphics.panels.NamesPanel;
@@ -14,9 +15,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MainFrame extends JFrame {
-    private DrinksModel drinksModel;
+//    private DrinksModel drinksModel;
+    private List<Drink> drinksModel;
 
     private DrinksPanel drinksPanel;
     private NamesPanel namesPanel;
@@ -35,7 +40,8 @@ public class MainFrame extends JFrame {
         super("Drinks");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        drinksModel = new DrinksModel();
+//        drinksModel = new DrinksModel();
+        drinksModel = new ArrayList<>();
 
         drinksPanel = new DrinksPanel(drinksModel);
         sortedDrinksPanel = new SortedDrinksPanel(drinksModel);
@@ -64,7 +70,9 @@ public class MainFrame extends JFrame {
             int res = fileChooser.showDialog(this, "Открыть");
             if(res == JFileChooser.APPROVE_OPTION){
                 try {
-                    drinksModel.setData(Reader.readDrinksListFromXML(fileChooser.getSelectedFile()));
+//                    drinksModel.setData(Reader.readDrinksListFromXML(fileChooser.getSelectedFile()));
+                    drinksModel.clear();
+                    drinksModel.addAll(Reader.readDrinksListFromXML(fileChooser.getSelectedFile()));
                     tabbedPane.setSelectedComponent(drinksPanel);
                     drinksPanel.update();
                 } catch (ParserConfigurationException | SAXException | IllegalArgumentException | IOException ex) {
