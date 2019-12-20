@@ -34,7 +34,13 @@ public class StringsListModel extends DefaultListModel<String> {
         data.add(element);
     }
 
+    @Override
+    public void clear() {
+        data.clear();
+    }
+
     public void update(){
         fireContentsChanged(this, 0, 0);
     }
+
 }

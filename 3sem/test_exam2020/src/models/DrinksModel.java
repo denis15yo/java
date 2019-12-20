@@ -63,6 +63,9 @@ public class DrinksModel implements Iterable<Drink> {
         Map<CoffeeType, Double> res = new TreeMap<>();
         Map<CoffeeType, List<Double>> temp = new TreeMap<>();
         for(Drink d : data){
+            if(!(d instanceof Coffee)){
+                continue;
+            }
             Coffee coffee = (Coffee)d;
             CoffeeType coffeeType = coffee.getCoffeeType();
             if(temp.containsKey(coffeeType)){
@@ -87,6 +90,9 @@ public class DrinksModel implements Iterable<Drink> {
         Map<TeaType, Double> res = new TreeMap<>();
         Map<TeaType, List<Double>> temp = new TreeMap<>();
         for(Drink d : data){
+            if(!(d instanceof Tea)){
+                continue;
+            }
             Tea tea = (Tea)d;
             TeaType teaType = tea.getTeaType();
             //noinspection DuplicatedCode
