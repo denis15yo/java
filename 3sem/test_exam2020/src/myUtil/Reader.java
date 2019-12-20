@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reader {
-    public static List<Drink> readDrinksListFromXML(File file) throws ParserConfigurationException, IOException, SAXException {
+    public static List<Drink> readDrinksListFromXML(File file) throws ParserConfigurationException, SAXException,
+            IllegalArgumentException, IOException {
         List<Drink> res = new ArrayList<>();
 
         DocumentBuilderFactory f = DocumentBuilderFactory.newDefaultInstance();

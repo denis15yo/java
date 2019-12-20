@@ -9,6 +9,7 @@ import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class SortedDrinksPanel extends JPanel {
     private DrinksModel dataBase;
 
@@ -21,13 +22,13 @@ public class SortedDrinksPanel extends JPanel {
         this.dataBase = dataBase;
         drinksListModel = new DrinksListModel(new DrinksModel());
         drinksList = new JList<>(drinksListModel);
-        drinksList.setFont(new Font("monospaced", FontUIResource.PLAIN, 10));
+        drinksList.setFont(new Font("monospaced", FontUIResource.PLAIN, 12));
 
         add(drinksList, BorderLayout.CENTER);
     }
 
     public void update(){
-        drinksListModel.setDrinksModel(new DrinksModel(dataBase.stream().sorted((l, r) -> {
+        drinksListModel.setData(new DrinksModel(dataBase.stream().sorted((l, r) -> {
             if(l.getCost() != r.getCost()){
                 return r.getCost() - l.getCost();
             }

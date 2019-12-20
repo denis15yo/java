@@ -8,6 +8,7 @@ public class Coffee extends Drink {
         coffeeType = CoffeeType.BEANS; //??????
     }
 
+
     public Coffee(String name, int caffeine, int cost, CoffeeType coffeeType) {
         super(name, caffeine, cost);
         this.coffeeType = coffeeType;
@@ -15,7 +16,7 @@ public class Coffee extends Drink {
 
     @Override
     public String toString() {
-        return super.toString() + String.format("%-6s", coffeeType);
+        return super.toString() + String.format("%-10s", coffeeType);
     }
 
     public void setCoffeeType(CoffeeType coffeeType) {

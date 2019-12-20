@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class DrinksPanel extends JPanel {
     private DrinksModel dataBase;
 
@@ -20,8 +21,8 @@ public class DrinksPanel extends JPanel {
         this.dataBase = dataBase;
         drinksListModel = new DrinksListModel(dataBase);
         drinksList = new JList<>(drinksListModel);
-        drinksList.setFont(new Font("monospaced", FontUIResource.PLAIN, 10));
-        drinksList.setPreferredSize(new Dimension(500, 200));
+        drinksList.setFont(new Font("monospaced", FontUIResource.PLAIN, 12));
+        drinksList.setPreferredSize(new Dimension(350, 200));
 
         add(drinksList, BorderLayout.CENTER);
     }

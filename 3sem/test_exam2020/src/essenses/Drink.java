@@ -1,6 +1,6 @@
 package essenses;
 
-public abstract class Drink {
+public class Drink {
     private String name;
     private int caffeine;
     private int cost;
@@ -19,7 +19,7 @@ public abstract class Drink {
 
     @Override
     public String toString() {
-        return String.format("%-10s%-5d%-5d", name, caffeine, cost);
+        return String.format("%-15s%-10d%-10d", name, caffeine, cost);
     }
 
     public String getName() {

@@ -3,7 +3,6 @@ package graphics.panels;
 import essenses.Coffee;
 import essenses.CoffeeType;
 import essenses.TeaType;
-import models.DrinksListModel;
 import models.DrinksModel;
 import models.StringsListModel;
 
@@ -12,6 +11,7 @@ import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.util.Map;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class MapPanel extends JPanel {
     private DrinksModel dataBase;
 
@@ -24,26 +24,27 @@ public class MapPanel extends JPanel {
         this.dataBase = dataBase;
         stringsListModel = new StringsListModel();
         strings = new JList<>(stringsListModel);
-        strings.setFont(new Font("monospaced", FontUIResource.PLAIN, 10));
+        strings.setFont(new Font("monospaced", FontUIResource.PLAIN, 12));
 
         add(strings, BorderLayout.CENTER);
     }
 
     public void update(){
         stringsListModel.clear();
-        if(dataBase.get(0)instanceof Coffee){
-            Map<CoffeeType, Double> m = dataBase.coffeeMap();
-            m.forEach((l, r) -> {
-                stringsListModel.addElement(String.format("%-7s%-5f", l, r));
-            });
+        if(dataBase.size() > 0){
+            if(dataBase.get(0)instanceof Coffee){
+                Map<CoffeeType, Double> m = dataBase.coffeeMap();
+                m.forEach((l, r) -> {
+                    stringsListModel.addElement(String.format("%-7s%-5.3f", l, r));
+                });
+            }
+            else{
+                Map<TeaType, Double> m = dataBase.teaMap();
+                m.forEach((l, r) -> {
+                    stringsListModel.addElement(String.format("%-7s%-5.3f", l, r));
+                });
+            }
         }
-        else{
-            Map<TeaType, Double> m = dataBase.teaMap();
-            m.forEach((l, r) -> {
-                stringsListModel.addElement(String.format("%-7s%-5f", l, r));
-            });
-        }
-
         stringsListModel.update();
     }
 }

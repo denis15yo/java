@@ -9,8 +9,10 @@ import myUtil.Reader;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
-import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class MainFrame extends JFrame {
@@ -55,14 +57,18 @@ public class MainFrame extends JFrame {
 
         openMenu.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
+            FileFilter fileFilter = new FileNameExtensionFilter("XML file", "xml");
+            fileChooser.addChoosableFileFilter(fileFilter);
+            fileChooser.setFileFilter(fileFilter);
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int res = fileChooser.showDialog(this, "Открыть");
             if(res == JFileChooser.APPROVE_OPTION){
                 try {
                     drinksModel.setData(Reader.readDrinksListFromXML(fileChooser.getSelectedFile()));
                     tabbedPane.setSelectedComponent(drinksPanel);
                     drinksPanel.update();
-                } catch (ParserConfigurationException | IOException | SAXException ex) {
-                    JOptionPane.showMessageDialog(this, "Некорректный файл", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                } catch (ParserConfigurationException | SAXException | IllegalArgumentException | IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Некорректные данные в файле", "Ошибка", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

@@ -14,7 +14,7 @@ public class Tea extends Drink {
 
     @Override
     public String toString() {
-        return super.toString() + String.format("%-6s", teaType);
+        return super.toString() + String.format("%-10s", teaType);
     }
 
     public void setTeaType(TeaType teaType) {

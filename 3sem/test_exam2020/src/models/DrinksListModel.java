@@ -5,24 +5,24 @@ import essenses.Drink;
 import javax.swing.*;
 
 public class DrinksListModel extends DefaultListModel<Drink> {
-    private DrinksModel drinksModel;
+    private DrinksModel data;
 
-    public void setDrinksModel(DrinksModel drinksModel) {
-        this.drinksModel = drinksModel;
+    public void setData(DrinksModel data) {
+        this.data = data;
     }
 
-    public DrinksListModel(DrinksModel drinksModel) {
-        this.drinksModel = drinksModel;
+    public DrinksListModel(DrinksModel data) {
+        this.data = data;
     }
 
     @Override
     public int getSize() {
-        return drinksModel.size();
+        return data.size();
     }
 
     @Override
     public Drink getElementAt(int index) {
-        return drinksModel.get(index);
+        return data.get(index);
     }
 
     public void update(){

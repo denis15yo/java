@@ -1,9 +1,6 @@
 package myUtil;
 
-import essenses.Coffee;
-import essenses.CoffeeType;
-import essenses.Tea;
-import essenses.TeaType;
+import essenses.*;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -19,22 +16,7 @@ public class Parser {
         }
         coffee.setCoffeeType(CoffeeType.valueOf(attributes.getNamedItem("coffeeType").getTextContent()));
 
-        Node currentChild = node.getFirstChild();
-        while(currentChild != null){
-            String childName = currentChild.getNodeName();
-            switch(childName){
-                case "name":
-                    coffee.setName(currentChild.getTextContent());
-                    break;
-                case "caffeine":
-                    coffee.setCaffeine(Integer.parseInt(currentChild.getTextContent()));
-                    break;
-                case "cost":
-                    coffee.setCost(Integer.parseInt(currentChild.getTextContent()));
-                    break;
-            }
-            currentChild = currentChild.getNextSibling();
-        }
+        getDrinkInfo(node, coffee);
 
         return coffee;
     }
@@ -48,23 +30,27 @@ public class Parser {
         }
         tea.setTeaType(TeaType.valueOf(attributes.getNamedItem("teaType").getTextContent()));
 
-        Node currentChild = node.getFirstChild(); // fix duplucate todo
+        getDrinkInfo(node, tea);
+
+        return tea;
+    }
+
+    private static void getDrinkInfo(Node node, Drink drink){
+        Node currentChild = node.getFirstChild();
         while(currentChild != null){
             String childName = currentChild.getNodeName();
             switch(childName){
                 case "name":
-                    tea.setName(currentChild.getTextContent());
+                    drink.setName(currentChild.getTextContent());
                     break;
                 case "caffeine":
-                    tea.setCaffeine(Integer.parseInt(currentChild.getTextContent()));
+                    drink.setCaffeine(Integer.parseInt(currentChild.getTextContent()));
                     break;
                 case "cost":
-                    tea.setCost(Integer.parseInt(currentChild.getTextContent()));
+                    drink.setCost(Integer.parseInt(currentChild.getTextContent()));
                     break;
             }
             currentChild = currentChild.getNextSibling();
         }
-
-        return tea;
     }
 }
