@@ -8,10 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class WorkersTablePanel extends JPanel implements Updatable {
+    protected WorkersModel workersModel;
+
     protected JTable workersTable;
     protected WorkersTableModel workersTableModel;
-
-    protected WorkersModel workersModel;
 
     public WorkersTablePanel(WorkersModel workersModel, WorkersTableModel workersTableModel) {
         super(new BorderLayout());

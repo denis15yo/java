@@ -19,10 +19,10 @@ public class ToyAddDialog extends JDialog {
     private JButton addButton;
 
     private Toy addedToy;
-
     public Toy getAddedToy() {
         return addedToy;
     }
+    
     public ToyAddDialog(JFrame owner) {
         super(owner, "Добавление", true);
         setResizable(false);

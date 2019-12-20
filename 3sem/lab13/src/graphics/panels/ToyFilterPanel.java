@@ -25,9 +25,9 @@ public class ToyFilterPanel extends JPanel implements Updatable {
 
     public ToyFilterPanel(ToysModel toysModel) {
         super(new BorderLayout());
-        initComponents();
 
         this.toysModel = toysModel;
+        initComponents();
 
         Box ageBoundsBox = Box.createHorizontalBox();
         Box minAgeBoundPanel = Box.createVerticalBox();

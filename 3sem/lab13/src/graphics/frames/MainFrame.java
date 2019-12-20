@@ -48,7 +48,6 @@ public class MainFrame extends JFrame {
         tabbedPane.addTab("Данные", dataPanel);
         tabbedPane.addTab("Фильтр", toyFilterPanel);
 
-
         openMenu.addActionListener(e -> {
             try {
                 FileDialog dlg = new FileDialog(this, "Открыть", FileDialog.LOAD);

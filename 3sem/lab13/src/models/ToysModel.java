@@ -5,9 +5,10 @@ import essenses.Toy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ToysModel implements Iterable<Toy> {
-    List<Toy> data;
+    private List<Toy> data;
 
     public ToysModel() {
         data = new ArrayList<>();
@@ -43,5 +44,9 @@ public class ToysModel implements Iterable<Toy> {
 
     public void setData(List<Toy> data) {
         this.data = data;
+    }
+
+    public Stream<Toy> stream(){
+        return data.stream();
     }
 }

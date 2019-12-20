@@ -15,28 +15,28 @@
         <salary>5000</salary>
     </worker>
     <worker>
-        <surname>Шилович</surname>
+        <surname>Иванов</surname>
         <post>Продюссер</post>
         <salary>7000</salary>
     </worker>
     <worker>
-        <surname>Марцинковский</surname>
+        <surname>Понтрягин</surname>
         <post>Сапожник</post>
         <salary>300</salary>
     </worker>
     <worker>
         <surname>Белый</surname>
-        <post>Бандит</post>
+        <post>Кассир</post>
         <salary>5000</salary>
     </worker>
     <worker>
-        <surname>Малевич</surname>
+        <surname>Эйлер</surname>
         <post>Математик</post>
         <salary>960</salary>
     </worker>
     <worker>
-        <surname>Зеликов</surname>
-        <post>Программист</post>
+        <surname>Понтрягин</surname>
+        <post>Математик</post>
         <salary>3000</salary>
     </worker>
 </work>

@@ -5,21 +5,20 @@ public class Toy {
     private int cost;
     private AgeBounds ageBounds;
 
+    public Toy() {
+        name = "";
+        cost = 0;
+        ageBounds = new AgeBounds();
+    }
     public Toy(String name, int cost, AgeBounds ageBounds) {
         this.name = name;
         this.cost = cost;
         this.ageBounds = ageBounds;
     }
 
-    public Toy() {
-        name = "";
-        cost = 0;
-        ageBounds = new AgeBounds();
-    }
-
     @Override
     public String toString() {
-        return name + cost + ageBounds;
+        return name + " " + cost + " " + ageBounds;
     }
 
     public String getName() {

@@ -7,13 +7,17 @@ import models.ToysTableModel;
 import javax.swing.*;
 import java.awt.*;
 
+
+@SuppressWarnings("FieldCanBeLocal")
 public class DataPanel extends JPanel implements Updatable {
-    @SuppressWarnings("FieldCanBeLocal")
+    private ToysModel toysModel;
+
     private JTable dataTable;
     private ToysTableModel dataTableModel;
 
     public DataPanel(ToysModel toysModel) {
         super(new BorderLayout());
+        this.toysModel = toysModel;
         dataTableModel = new ToysTableModel(toysModel);
         dataTable = new JTable(dataTableModel);
 

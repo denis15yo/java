@@ -1,13 +1,10 @@
 package models;
 
-import essenses.Worker;
-
 import javax.swing.*;
-import javax.swing.event.ListDataListener;
 import java.util.List;
 
 public class StringListModel extends DefaultListModel<String> {
-    List<String> data;
+    private List<String> data;
 
     public StringListModel(List<String> data) {
         this.data = data;
