@@ -1,7 +1,6 @@
 package graphics.panels;
 
 import essenses.Drink;
-import models.DrinksListModel;
 import models.DrinksModel;
 
 import javax.swing.*;
@@ -13,13 +12,14 @@ public class DrinksPanel extends JPanel {
     private DrinksModel dataBase;
 
     private JList<Drink> drinksList;
-    private DrinksListModel drinksListModel;
+    private DefaultListModel<Drink> drinksListModel;
 
     public DrinksPanel(DrinksModel dataBase) {
         super(new BorderLayout());
 
         this.dataBase = dataBase;
-        drinksListModel = new DrinksListModel(dataBase);
+
+        drinksListModel = new DefaultListModel<>();
         drinksList = new JList<>(drinksListModel);
         drinksList.setFont(new Font("monospaced", FontUIResource.PLAIN, 12));
         drinksList.setPreferredSize(new Dimension(350, 200));
@@ -28,6 +28,7 @@ public class DrinksPanel extends JPanel {
     }
 
     public void update(){
-        drinksListModel.update();
+        drinksListModel.clear();
+        dataBase.forEach(e -> drinksListModel.addElement(e));
     }
 }

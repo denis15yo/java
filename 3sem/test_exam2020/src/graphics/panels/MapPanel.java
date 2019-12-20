@@ -4,7 +4,6 @@ import essenses.Coffee;
 import essenses.CoffeeType;
 import essenses.TeaType;
 import models.DrinksModel;
-import models.StringsListModel;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
@@ -16,13 +15,13 @@ public class MapPanel extends JPanel {
     private DrinksModel dataBase;
 
     private JList<String> strings;
-    private StringsListModel stringsListModel;
+    private DefaultListModel<String> stringsListModel;
 
     public MapPanel(DrinksModel dataBase) {
         super(new BorderLayout());
 
         this.dataBase = dataBase;
-        stringsListModel = new StringsListModel();
+        stringsListModel = new DefaultListModel<>();
         strings = new JList<>(stringsListModel);
         strings.setFont(new Font("monospaced", FontUIResource.PLAIN, 12));
 
@@ -45,6 +44,5 @@ public class MapPanel extends JPanel {
                 });
             }
         }
-        stringsListModel.update();
     }
 }

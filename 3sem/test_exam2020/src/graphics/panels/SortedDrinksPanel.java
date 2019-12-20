@@ -1,26 +1,24 @@
 package graphics.panels;
 
 import essenses.Drink;
-import models.DrinksListModel;
 import models.DrinksModel;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class SortedDrinksPanel extends JPanel {
     private DrinksModel dataBase;
 
     private JList<Drink> drinksList;
-    private DrinksListModel drinksListModel;
+    private DefaultListModel<Drink> drinksListModel;
 
     public SortedDrinksPanel(DrinksModel dataBase) {
         super(new BorderLayout());
 
         this.dataBase = dataBase;
-        drinksListModel = new DrinksListModel(new DrinksModel());
+        drinksListModel = new DefaultListModel<>();
         drinksList = new JList<>(drinksListModel);
         drinksList.setFont(new Font("monospaced", FontUIResource.PLAIN, 12));
 
@@ -28,12 +26,12 @@ public class SortedDrinksPanel extends JPanel {
     }
 
     public void update(){
-        drinksListModel.setData(new DrinksModel(dataBase.stream().sorted((l, r) -> {
+        drinksListModel.clear();
+        dataBase.stream().sorted((l, r) -> {
             if(l.getCost() != r.getCost()){
                 return r.getCost() - l.getCost();
             }
             return l.getName().compareTo(r.getName());
-        }).collect(Collectors.toList())));
-        drinksListModel.update();
+        }).forEachOrdered(e -> drinksListModel.addElement(e));
     }
 }
