@@ -1,0 +1,32 @@
+<work>
+    <seller revenue="2000">
+        <surname>Иванов</surname>
+        <organization>Пятерочка</organization>
+        <jobRatio>200</jobRatio>
+    </seller>
+    <seller revenue="1000">
+        <surname>Сидоров</surname>
+        <organization>Рублевский</organization>
+        <jobRatio>200</jobRatio>
+    </seller>
+    <seller revenue="100">
+        <surname>Петров</surname>
+        <organization>Виталюр</organization>
+        <jobRatio>220</jobRatio>
+    </seller>
+    <seller revenue="500">
+        <surname>Васильков</surname>
+        <organization>Виталюр</organization>
+        <jobRatio>100</jobRatio>
+    </seller>
+    <seller revenue="800">
+        <surname>Белый</surname>
+        <organization>Евроопт</organization>
+        <jobRatio>500</jobRatio>
+    </seller>
+    <seller revenue="650">
+        <surname>Белочкин</surname>
+        <organization>Виталюр</organization>
+        <jobRatio>700</jobRatio>
+    </seller>
+</work>

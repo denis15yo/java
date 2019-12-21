@@ -7,47 +7,47 @@ import org.w3c.dom.Node;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class Parser {
-    public static Coffee parseNodeToCoffee(Node node) throws ParserConfigurationException, IllegalArgumentException {
-        Coffee coffee = new Coffee();
+    public static SecurityGuard parseNodeToSecurityGuard(Node node) throws ParserConfigurationException, IllegalArgumentException {
+        SecurityGuard securityGuard = new SecurityGuard();
 
         NamedNodeMap attributes = node.getAttributes();
         if(attributes.getLength() != 1){
             throw new ParserConfigurationException();
         }
-        coffee.setCoffeeType(CoffeeType.valueOf(attributes.getNamedItem("coffeeType").getTextContent()));
+        securityGuard.setGuardedArea(Integer.parseInt(attributes.getNamedItem("guardedArea").getTextContent()));
 
-        getDrinkInfo(node, coffee);
+        getWorkerInfo(node, securityGuard);
 
-        return coffee;
+        return securityGuard;
     }
 
-    public static Tea parseNodeToTea(Node node) throws ParserConfigurationException, IllegalArgumentException {
-        Tea tea = new Tea();
+    public static Seller parseNodeToSeller(Node node) throws ParserConfigurationException, IllegalArgumentException {
+        Seller tea = new Seller();
 
         NamedNodeMap attributes = node.getAttributes();
         if(attributes.getLength() != 1){
             throw new ParserConfigurationException();
         }
-        tea.setTeaType(TeaType.valueOf(attributes.getNamedItem("teaType").getTextContent()));
+        tea.setRevenue(Integer.parseInt(attributes.getNamedItem("revenue").getTextContent()));
 
-        getDrinkInfo(node, tea);
+        getWorkerInfo(node, tea);
 
         return tea;
     }
 
-    private static void getDrinkInfo(Node node, Drink drink){
+    private static void getWorkerInfo(Node node, Worker worker){
         Node currentChild = node.getFirstChild();
         while(currentChild != null){
             String childName = currentChild.getNodeName();
             switch(childName){
-                case "name":
-                    drink.setName(currentChild.getTextContent());
+                case "surname":
+                    worker.setSurname(currentChild.getTextContent());
                     break;
-                case "caffeine":
-                    drink.setCaffeine(Integer.parseInt(currentChild.getTextContent()));
+                case "organization":
+                    worker.setOrganization(currentChild.getTextContent());
                     break;
-                case "cost":
-                    drink.setCost(Integer.parseInt(currentChild.getTextContent()));
+                case "jobRatio":
+                    worker.setJobRatio(Integer.parseInt(currentChild.getTextContent()));
                     break;
             }
             currentChild = currentChild.getNextSibling();

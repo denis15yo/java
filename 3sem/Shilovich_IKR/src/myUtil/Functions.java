@@ -6,62 +6,35 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Functions {
-    public static Set<String> namesTreeSet(List<Drink> list){
-        return list.stream().map(Drink::getName).collect(Collectors.toCollection(TreeSet::new));
+    public static Set<String> organizationsTreeSet(List<Worker> list){
+        return list.stream().map(Worker::getOrganization).collect(Collectors.toCollection(TreeSet::new));
     }
 
-    public static Map<CoffeeType, Double> coffeeMap(List<Drink> data){
-        Map<CoffeeType, Double> res = new TreeMap<>();
-        Map<CoffeeType, List<Double>> temp = new TreeMap<>();
-        for(Drink d : data){
-            if(!(d instanceof Coffee)){
-                continue;
-            }
-            Coffee coffee = (Coffee)d;
-            CoffeeType coffeeType = coffee.getCoffeeType();
-            if(temp.containsKey(coffeeType)){
-                temp.get(coffeeType).add((double) coffee.getCaffeine());
-            }
-            else{
-                List<Double> list = new ArrayList<>();
-                list.add((double) coffee.getCaffeine());
-                temp.put(coffeeType, list);
-            }
-        }
-        temp.forEach((t, l) -> {
-            OptionalDouble optionalAverage = l.stream().mapToDouble(Double::doubleValue).average();
-            if(optionalAverage.isPresent()){
-                res.put(t, optionalAverage.getAsDouble());
-            }
-        });
-        return res;
-    }
+    public static Map<String, DoublePair> makeMap(List<Worker> list){
+        Map<String, DoublePair> res = new TreeMap<>();
+        Map<String, List<Double>> temp = new TreeMap<>();
 
-    public static Map<TeaType, Double> teaMap(List<Drink> data){
-        Map<TeaType, Double> res = new TreeMap<>();
-        Map<TeaType, List<Double>> temp = new TreeMap<>();
-        for(Drink d : data){
-            if(!(d instanceof Tea)){
-                continue;
-            }
-            Tea tea = (Tea)d;
-            TeaType teaType = tea.getTeaType();
-            //noinspection DuplicatedCode
-            if(temp.containsKey(teaType)){
-                temp.get(teaType).add((double) tea.getCaffeine());
+        for(Worker w : list){
+            String organization = w.getOrganization();
+            if(temp.containsKey(organization)){
+                temp.get(organization).add(w.calcSalary());
             }
             else{
-                List<Double> list = new ArrayList<>();
-                list.add((double) tea.getCaffeine());
-                temp.put(teaType, list);
+                List<Double> l = new ArrayList<>();
+                l.add(w.calcSalary());
+                temp.put(organization, l);
             }
         }
-        temp.forEach((t, l) -> {
-            OptionalDouble optionalAverage = l.stream().mapToDouble(Double::doubleValue).average();
-            if(optionalAverage.isPresent()){
-                res.put(t, optionalAverage.getAsDouble());
+
+        temp.forEach((k, v) -> {
+            if(!v.isEmpty()){
+                Double min = Collections.min(v);
+                Double max = Collections.max(v);
+                res.put(k, new DoublePair(min, max));
             }
         });
+
         return res;
     }
+    
 }

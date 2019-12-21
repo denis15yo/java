@@ -1,0 +1,32 @@
+<work>
+    <securityGuard guardedArea="2000">
+        <surname>Иванов</surname>
+        <organization>Беларусьбанк</organization>
+        <jobRatio>200</jobRatio>
+    </securityGuard>
+    <securityGuard guardedArea="1000">
+        <surname>Сидоров</surname>
+        <organization>АльфаБанк</organization>
+        <jobRatio>200</jobRatio>
+    </securityGuard>
+    <securityGuard guardedArea="100">
+        <surname>Петров</surname>
+        <organization>Нефетехим</organization>
+        <jobRatio>220</jobRatio>
+    </securityGuard>
+    <securityGuard guardedArea="500">
+        <surname>Васильков</surname>
+        <organization>Дача</organization>
+        <jobRatio>100</jobRatio>
+    </securityGuard>
+    <securityGuard guardedArea="800">
+        <surname>Белый</surname>
+        <organization>ПаритетБанк</organization>
+        <jobRatio>500</jobRatio>
+    </securityGuard>
+    <securityGuard guardedArea="650">
+        <surname>Белочкин</surname>
+        <organization>Дом</organization>
+        <jobRatio>700</jobRatio>
+    </securityGuard>
+</work>
