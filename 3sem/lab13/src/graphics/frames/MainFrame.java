@@ -3,10 +3,13 @@ package graphics.frames;
 import essenses.Toy;
 import graphics.dialogs.ToyAddDialog;
 import graphics.panels.DataPanel;
+import graphics.panels.MapPanel;
 import graphics.panels.ToyFilterPanel;
 import graphics.interfaces.Updatable;
 import models.ToysModel;
 import myUtil.Exporter;
+import myUtil.Functions;
+import myUtil.IntPair;
 import myUtil.Reader;
 import org.xml.sax.SAXException;
 
@@ -17,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class MainFrame extends JFrame {
     private JMenuBar menuBar;
@@ -28,9 +33,12 @@ public class MainFrame extends JFrame {
 
     private DataPanel dataPanel;
     private ToyFilterPanel toyFilterPanel;
+    private MapPanel mapPanel;
 
     private ToysModel model;
     private List<Updatable> listeners = new ArrayList<>();
+
+    private Map<String, IntPair> map;
 
     public MainFrame() {
         super("Фильтр игрушек");
@@ -47,6 +55,7 @@ public class MainFrame extends JFrame {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Данные", dataPanel);
         tabbedPane.addTab("Фильтр", toyFilterPanel);
+        tabbedPane.addTab("Map", mapPanel);
 
         openMenu.addActionListener(e -> {
             try {
@@ -61,6 +70,9 @@ public class MainFrame extends JFrame {
                     else{
                         model.setData(Reader.readListOfToysFromXML(file));
                     }
+                    map.clear();
+                    Map<String, IntPair> m = Functions.makeMap(model.getData());
+                    m.forEach((l, r) -> map.put(l, r));
                     updateAll();
                 }
             } catch(NumberFormatException | SAXException |ParserConfigurationException ex){
@@ -90,7 +102,10 @@ public class MainFrame extends JFrame {
             dlg.setVisible(true);
             Toy addedToy = dlg.getAddedToy();
             if(addedToy != null){
+                map.clear();
                 model.add(addedToy);
+                Map<String, IntPair> m = Functions.makeMap(model.getData());
+                m.forEach((l, r) -> map.put(l, r));
                 updateAll();
             }
         });
@@ -111,11 +126,14 @@ public class MainFrame extends JFrame {
         saveMenu = new JMenuItem("Сохранить");
         addDataMenu = new JMenuItem("Добавить");
 
+        map = new TreeMap<>();
         model = new ToysModel();
         dataPanel = new DataPanel(model);
         toyFilterPanel = new ToyFilterPanel(model);
+        mapPanel = new MapPanel(map);
         addListener(dataPanel);
         addListener(toyFilterPanel);
+        addListener(mapPanel);
     }
 
     private void updateAll(){
