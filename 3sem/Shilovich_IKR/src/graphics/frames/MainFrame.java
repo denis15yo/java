@@ -67,7 +67,7 @@ public class MainFrame extends JFrame {
             fileChooser.addChoosableFileFilter(fileFilter);
             fileChooser.setFileFilter(fileFilter);
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-            int res = fileChooser.showDialog(this, "Открыть");
+            int res = fileChooser.showOpenDialog(this);
             if(res == JFileChooser.APPROVE_OPTION){
                 try {
 //                    drinksModel.setData(Reader.readDrinksListFromXML(fileChooser.getSelectedFile()));

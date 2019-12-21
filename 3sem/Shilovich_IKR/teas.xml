@@ -29,4 +29,9 @@
         <caffeine>150</caffeine>
         <cost>500</cost>
     </tea>
+    <coffee coffeeType="BEANS">
+        <name>Lavazza</name>
+        <caffeine>150</caffeine>
+        <cost>500</cost>
+    </coffee>
 </shop>

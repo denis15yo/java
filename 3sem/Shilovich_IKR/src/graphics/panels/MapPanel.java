@@ -36,21 +36,11 @@ public class MapPanel extends JPanel {
 
     public void update(){
         stringsListModel.clear();
-        if(dataBase.size() > 0){
-            if(dataBase.get(0)instanceof Coffee){
-//                Map<CoffeeType, Double> m = dataBase.coffeeMap();
-                Map<CoffeeType, Double> m = Functions.coffeeMap(dataBase);
-                m.forEach((l, r) -> {
-                    stringsListModel.addElement(String.format("%-7s%-5.3f", l, r));
-                });
-            }
-            else{
-//                Map<TeaType, Double> m = dataBase.teaMap();
-                Map<TeaType, Double> m = Functions.teaMap(dataBase);
-                m.forEach((l, r) -> {
-                    stringsListModel.addElement(String.format("%-7s%-5.3f", l, r));
-                });
-            }
-        }
+
+        Map<CoffeeType, Double> coffeeTypeMap = Functions.coffeeMap(dataBase);
+        coffeeTypeMap.forEach((l, r) -> stringsListModel.addElement(String.format("%-7s%-5.3f", l, r)));
+
+        Map<TeaType, Double> teaTypeMap = Functions.teaMap(dataBase);
+        teaTypeMap.forEach((l, r) -> stringsListModel.addElement(String.format("%-7s%-5.3f", l, r)));
     }
 }
